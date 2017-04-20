@@ -16,13 +16,15 @@ parameters: [
 
   ]
 
-  sh "echo ${stuff}"
-
-  sh "echo"
+ 
   
   node('maven') {
-    checkout scm
+     sh "echo ${stuff}"
+
+     sh "echo"
     scm.dump()
+    checkout scm
+    
     sh 'mvn --version'
   }
   node('master') {
