@@ -26,7 +26,8 @@ parameters: [
     sh "ls -tal"
     checkout scm
     sh "ls -tal"
-    sh 'echo scm.dump '
+    scmdump = scm.dump()
+    sh 'echo scm dump = ${scmdump}'
     sh 'mvn --version'
   }
   node('master') {
