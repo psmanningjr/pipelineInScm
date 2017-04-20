@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 //input message: 'message', ok: 'do it', parameters: [choice(choices: "red\ngreen\npurple\n'], description: '', name: 'color')
 stuff = input message: 'Select Promotion Parameters', 
 parameters: [
@@ -17,8 +19,10 @@ parameters: [
   sh "echo ${stuff}"
 
   sh "echo"
-  scm.dump()
+  
   node('maven') {
+    checkout scm
+    scm.dump()
     sh 'mvn --version'
   }
   node('master') {
