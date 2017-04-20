@@ -22,9 +22,10 @@ parameters: [
      sh "echo ${stuff}"
 
      sh "echo"
-    scm.dump()
+    //scm.dump()
+    sh "ls -tal"
     checkout scm
-    
+    sh "ls -tal"
     sh 'mvn --version'
   }
   node('master') {
