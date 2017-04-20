@@ -13,11 +13,16 @@ parameters: [
   choice(choices: "integration\nidentity\nmaterial\nsecurity", description: '', name: 'app_name')
 
   ]
+
+  sh "echo ${stuff}"
+
+  sh "echo"
+  scm.dump()
   node('maven') {
     sh 'mvn --version'
   }
   node('master') {
-   sh "echo ${stuff}"
+   
    sh "ls -tal"
    sh "ls -tal /tmp"
 
