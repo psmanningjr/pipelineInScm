@@ -103,7 +103,7 @@ def info = readFile('/tmp/paraminfo').trim()
     println "processing ${eachSplit}"
 //    if(source.getText("UTF-8").find("^"+ eachSplit)){
         //dest.write(term)
-    //}
+   }
 
 
 //  sh "for item in ${TEMPLATE_PARAMS}; do printf " + '"' + " returnitem(item) " +'"' + "; done > /tmp/template.args"
