@@ -97,13 +97,13 @@ def info = readFile('/tmp/paraminfo').trim()
   //List lines = TEMPLATE_PARAMS.split( '\n' ).findAll
   String[] splitData = TEMPLATE_PARAMS.split("\n");
  
-    def source = new File('config_repo/vars.sh') 
-    def dest = new File('/tmp/template.args')
+    //def source = new File('config_repo/vars.sh') 
+    //def dest = new File('/tmp/template.args')
   for (String eachSplit : splitData) {
     println "processing ${eachSplit}"
 //    if(source.getText("UTF-8").find("^"+ eachSplit)){
-        dest.write(term)
-    }
+        //dest.write(term)
+    //}
 
 
 //  sh "for item in ${TEMPLATE_PARAMS}; do printf " + '"' + " returnitem(item) " +'"' + "; done > /tmp/template.args"
