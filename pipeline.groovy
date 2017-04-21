@@ -109,7 +109,7 @@ def info = readFile('/tmp/paraminfo').trim()
     println "processing ${eachSplit}"
     compare = eachSplit.substring(0,eachSplit.indexOf("="))
     println "compare with ${compare}"
-    if(TEMPLATE_PARAMS.contains(eachSplit.substring(0,eachSplit.indexof("=")))){
+    if(TEMPLATE_PARAMS.contains(eachSplit.substring(0,eachSplit.indexOf("=")))){
         println "found match"
       TEMPLATE_ARGS = TEMPLATE_ARGS + '"' + eachSplit + '" '
     }
