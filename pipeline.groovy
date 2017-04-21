@@ -32,28 +32,38 @@ node {
   TEMPLATE_NAME = stuff.get('templateName')
   HOSTNAME_HTTP = stuff.get('HOSTNAME_HTTP')
   
+  println "______________________________________________________________________________________________________"
+  println "    Get ${CONFIG_REPO} Configuration Repo 
   dir( 'config_repo' ) { 
       git branch: CONFIG_BRANCH, credentialsId: 'mint-dev-jenkinsgitlabsecret', url: CONFIG_REPO
-        sh 'ls -tal'
+      sh 'ls -tal'
   }
     
+  println "______________________________________________________________________________________________________"
+  println "    Get ${APP_REPO} Application Repo 
   dir ( 'app_repo' ) { 
       git branch: APP_BRANCH, credentialsId: 'mint-dev-jenkinsgitlabsecret', url: APP_REPO
-        sh 'ls -tal'
+      sh 'ls -tal'
   }
+
+  println "______________________________________________________________________________________________________"
+  println "    Create ${TO_NAMESPACE} Deployment configs etc. for ${TEMPLATE_NAME} if needed 
 
   sh "oc process ${TEMPLATE_NAME} -n syngenta RUNTIME=${RUNTIME} HOSTNAME_HTTP=${HOSTNAME_HTTP} >/tmp/toprocess"
   sh "oc apply -f /tmp/toprocess -n ${TO_NAMESPACE}"
  
   sh "oc project ${TO_NAMESPACE}"
   
+  println "______________________________________________________________________________________________________"
+  println "    Create/update Configmap in ${TO_NAMESPACE} for ${APP_NAME} 
+
   //# Get parameters expected by template
   sh script: "oc process --namespace ${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml --parameters >/tmp/paraminfo "
   sh "cut -f 1 -d "+'" "' + " /tmp/paraminfo >/tmp/onlynames"
   sh "tail -n +2 /tmp/onlynames >/tmp/tailed"
 
   def TEMPLATE_PARAMS = readFile('/tmp/tailed').trim()
-  println "Template parameters = ${TEMPLATE_PARAMS}"
+  //println "Template parameters = ${TEMPLATE_PARAMS}"
 
   //# Filter out unneeded config arguments
   def TEMPLATE_ARGS =""
@@ -75,5 +85,8 @@ node {
   
   sh "oc process --namespace=${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml ${TEMPLATE_ARGS} >/tmp/configmap"
   sh "oc apply -f /tmp/configmap --namespace=${TO_NAMESPACE}"
+
+  println "______________________________________________________________________________________________________"
+  println "    Promote ${FROM_NAMESPACE} to ${TO_NAMESPACE} for ${APP_NAME} 
   sh "oc tag ${FROM_NAMESPACE}/${APP_NAME}:${FROM_TAG} ${TO_NAMESPACE}/${APP_NAME}:latest"
 }
