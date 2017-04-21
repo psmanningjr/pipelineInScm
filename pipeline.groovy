@@ -85,15 +85,6 @@ sh "echo 'oc process $TEMPLATE_NAME -n syngenta RUNTIME=$RUNTIME HOSTNAME_HTTP=$
   def result = readFile('adir').trim()
   sh 'echo result = ${result}'
   
-  sh 'ls config_repo
-oc process $TEMPLATE_NAME -n syngenta RUNTIME=$RUNTIME HOSTNAME_HTTP=$HOSTNAME_HTTP | oc apply -f - -n $TO_NAMESPACE
-oc project $TO_NAMESPACE
-# Get parameters expected by template
-TEMPLATE_PARAMS=$(oc process --namespace $TO_NAMESPACE -f app_repo/openshift-config-map-template.yml --parameters | cut -f 1 -d &quot; &quot; | tail -n +2)
-# Filter out unneeded config arguments
-TEMPLATE_ARGS=$(for item in $TEMPLATE_PARAMS; do printf &quot;$(grep ^$item= config_repo/vars.sh) &quot;; done)
-oc process --namespace=$TO_NAMESPACE -f app_repo/openshift-config-map-template.yml $TEMPLATE_ARGS | oc apply -f - --namespace=$TO_NAMESPACE'
-  
  def avar =  sh (returnStdout:true, returnStatus:false, script: 'ls -tal app_repo/openshift-config-map-template.yml').trim()
   sh 'echo avar = "${avar}"'
 fullparms = sh(returnStdout:true,script: "oc process --namespace ${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml --parameters").trim()
