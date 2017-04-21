@@ -4,11 +4,11 @@
 stuff = input message: 'Select Promotion Parameters', 
 parameters: [
   choice(choices: "mint-dev\nmint-test\nmint-stage\nmint-system-integration\nmint-training\nmint-prod", description: '', name: 'from'),
-  choice(choices: "mint-dev\nmint-test\nmint-stage\nmint-system-integration\nmint-training\nmint-prod", description: '', name: 'to'),
+  choice(choices: "mint-test\nmint-test\nmint-stage\nmint-system-integration\nmint-training\nmint-prod", description: '', name: 'to'),
   choice(choices: "git@10.127.183.7:mint/mint-integration.git\ngit@10.127.183.7:mint/identity.git\ngit@10.127.183.7:mint/material.git\ngit@10.127.183.7:mint/mint-security-admin.git", description: '', name: 'appRepo'),
-  choice(choices: "git@10.127.183.7:openshift/dev-configs.git\ngit@10.127.183.7:openshift/test-configs.git\ngit@10.127.183.7:openshift/stage-configs.git\ngit@10.127.183.7:openshift/system-integration-configs.git\ngit@10.127.183.7:openshift/training-configs.git\ngit@10.127.183.7:openshift/prod-configs.git", description: '', name: 'configRepo'),
+  choice(choices: "git@10.127.183.7:openshift/test-configs.git\ngit@10.127.183.7:openshift/test-configs.git\ngit@10.127.183.7:openshift/stage-configs.git\ngit@10.127.183.7:openshift/system-integration-configs.git\ngit@10.127.183.7:openshift/training-configs.git\ngit@10.127.183.7:openshift/prod-configs.git", description: '', name: 'configRepo'),
   choice(choices: "mint-integration\nidentity\nmaterial\nmint-system-integration\nmint-security", description: '', name: 'templateName'),
-  string(defaultValue: '.fed5.syngenta-usae.openshiftapps.com/', description: '', name: 'HOSTNAME_HTTP'),
+  string(defaultValue: 'integration-tst.fed5.syngenta-usae.openshiftapps.com', description: '', name: 'HOSTNAME_HTTP'),
   string(defaultValue: 'QA', description: '', name: 'RUNTIME'),
   string(defaultValue: 'openshift', description: '', name: 'APP_BRANCH'),
   string(defaultValue: 'master', description: '', name: 'CONFIG_BRANCH'),
@@ -75,7 +75,7 @@ CONFIG_BRANCH = stuff.get('CONFIG_BRANCH')
      }
 //      <command>ls app_repo
 //ls config_repo
-sh "echo 'oc process $TEMPLATE_NAME -n syngenta RUNTIME=$RUNTIME HOSTNAME_HTTP=$HOSTNAME_HTTP | oc apply -f - -n $TO_NAMESPACE'"
+sh "oc process $TEMPLATE_NAME -n syngenta RUNTIME=$RUNTIME HOSTNAME_HTTP=$HOSTNAME_HTTP | oc apply -f - -n $TO_NAMESPACE"
  // sh "oc process ${TEMPLATE_NAME} -n syngenta RUNTIME=${RUNTIME} HOSTNAME_HTTP=${HOSTNAME_HTTP}"
  // sh "echo oc project ${TO_NAMESPACE}"
 //# Get parameters expected by template
