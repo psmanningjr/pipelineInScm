@@ -74,9 +74,9 @@ CONFIG_BRANCH = stuff.get('CONFIG_BRANCH')
         sh 'ls -tal'
      }
 
-  sh "oc process $TEMPLATE_NAME -n syngenta RUNTIME=$RUNTIME HOSTNAME_HTTP=$HOSTNAME_HTTP | oc apply -f - -n $TO_NAMESPACE"
-  sh "echo to= ${TO_NAMESPACE}"
-  sh "oc project ${TO_NAMESPACE}"
+  //sh "oc process $TEMPLATE_NAME -n syngenta RUNTIME=$RUNTIME HOSTNAME_HTTP=$HOSTNAME_HTTP | oc apply -f - -n $TO_NAMESPACE"
+  //sh "echo to= ${TO_NAMESPACE}"
+  //sh "oc project ${TO_NAMESPACE}"
 //# Get parameters expected by template
 //dir ( 'app_repo' ) { 
 //  sh "oc process --namespace ${TO_NAMESPACE} -f openshift-config-map-template.yml --parameters"
