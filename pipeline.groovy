@@ -79,9 +79,10 @@ sh "echo 'oc process $TEMPLATE_NAME -n syngenta RUNTIME=$RUNTIME HOSTNAME_HTTP=$
  // sh "oc process ${TEMPLATE_NAME} -n syngenta RUNTIME=${RUNTIME} HOSTNAME_HTTP=${HOSTNAME_HTTP}"
  // sh "echo oc project ${TO_NAMESPACE}"
 //# Get parameters expected by template
-TEMPLATE_FULLPARMS= "oc process --namespace ${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml --parameters".execute().text
-  TEMPLATE_VARS= sh "cut -f 1 -d ' ' ${TEMPLATE_FULLPARMS}"
-  TEMPLATE_PARMS = sh "tail -n +2 ${TEMPLATE_VARS}"
+sh "oc process --namespace ${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml --parameters >fullparms"
+sh "cut -f 1 -d ' ' fullparms >onlynames"
+sh "tail -n +2 onlynames > tailed"
+  TEMPLATE_PARMS = readFile 'tailed'
 //  TEMPLATE_PARAMS= (oc process --namespace ${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml --parameters | cut -f 1 -d &quot; &quot; | tail -n +2).execute.text
  // sh " echo ${TEMPLATE_PARAMS}"
   //# Filter out unneeded config arguments
