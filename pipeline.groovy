@@ -16,28 +16,28 @@ parameters: [
 
   ]
 
- node {
-   def mvnHome
-   stage('Preparation') { // for display purposes
-      // Get some code from a GitHub repository
-      //git 'https://github.com/jglick/simple-maven-project-with-tests.git'
-      git branch: 'master', credentialsId: 'mint-dev-jenkinsgitlabsecret', url:'git@10.127.183.7:openshift/dev-configs.git' 
-      // Get the Maven tool.
-      // ** NOTE: This 'M3' Maven tool must be configured
-      // **       in the global configuration.   
-     //mvnHome = tool 'maven'
-      sh "ls -tal"
-      }
-   }
+ //node {
+ //  def mvnHome
+ //  stage('Preparation') { // for display purposes
+ //     // Get some code from a GitHub repository
+ //     //git 'https://github.com/jglick/simple-maven-project-with-tests.git'
+ //     git branch: 'master', credentialsId: 'mint-dev-jenkinsgitlabsecret', url:'git@10.127.183.7:openshift/dev-configs.git' 
+ //     // Get the Maven tool.
+ //     // ** NOTE: This 'M3' Maven tool must be configured
+ //     // **       in the global configuration.   
+ //    //mvnHome = tool 'maven'
+ //     sh "ls -tal"
+ //     }
+ //  }
   
   node('maven') {
-     sh "echo ${stuff}"
+   //  sh "echo ${stuff}"
 
-     sh "echo"
+     //sh "echo"
     
-    sh "ls -tal"
-    checkout scm
-    sh "ls -tal"
+    //sh "ls -tal"
+   // checkout scm
+   // sh "ls -tal"
     //scmdump = scm.dump()
     //sh 'echo scm dump = ${scmdump}'
     sh 'mvn --version'
