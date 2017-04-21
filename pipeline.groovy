@@ -4,6 +4,7 @@
 stuff = input message: 'Select Promotion Parameters', 
 parameters: [
   choice(choices: "mint-dev\nmint-test\nmint-stage\nmint-system-integration\nmint-training\nmint-prod", description: '', name: 'from'),
+  string(defaultValue: 'latest', description: '', name: 'fromTag'),
   choice(choices: "mint-test\nmint-stage\nmint-system-integration\nmint-training\nmint-prod", description: '', name: 'to_namespace'),
   choice(choices: "git@10.127.183.7:mint/mint-integration.git\ngit@10.127.183.7:mint/identity.git\ngit@10.127.183.7:mint/material.git\ngit@10.127.183.7:mint/mint-security-admin.git", description: '', name: 'appRepo'),
   choice(choices: "git@10.127.183.7:openshift/test-configs.git\ngit@10.127.183.7:openshift/test-configs.git\ngit@10.127.183.7:openshift/stage-configs.git\ngit@10.127.183.7:openshift/system-integration-configs.git\ngit@10.127.183.7:openshift/training-configs.git\ngit@10.127.183.7:openshift/prod-configs.git", description: '', name: 'configRepo'),
@@ -19,6 +20,7 @@ parameters: [
 
 node {
   sh "echo ${stuff}"
+  FROM_TAG = stuff.get('fromTag')
 APP_REPO = stuff.get('appRepo')
 APP_BRANCH = stuff.get('APP_BRANCH')
 CONFIG_REPO = stuff.get('configRepo')
