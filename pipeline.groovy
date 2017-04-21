@@ -71,23 +71,14 @@ CONFIG_BRANCH = stuff.get('CONFIG_BRANCH')
       git branch: APP_BRANCH, credentialsId: 'mint-dev-jenkinsgitlabsecret', url: APP_REPO
         sh 'ls -tal'
      }
-//  <canRoam>true</canRoam>
-//  <disabled>false</disabled>
-//  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
-//  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-//  <triggers/>
-//  <concurrentBuild>false</concurrentBuild>
-//  <builders>
-//    <hudson.tasks.Shell>
 //      <command>ls app_repo
 //ls config_repo
-sh 'echo oc process $TEMPLATE_NAME -n syngenta RUNTIME=$RUNTIME HOSTNAME_HTTP=$HOSTNAME_HTTP | oc apply -f - -n $TO_NAMESPACE'
-sh ' echo oc project $TO_NAMESPACE'
+sh "echo oc process $TEMPLATE_NAME -n syngenta RUNTIME=$RUNTIME HOSTNAME_HTTP=$HOSTNAME_HTTP | oc apply -f - -n $TO_NAMESPACE"
+sh "echo oc project $TO_NAMESPACE"
 //# Get parameters expected by template
-//TEMPLATE_PARAMS=$(oc process --namespace $TO_NAMESPACE -f app_repo/openshift-config-map-template.yml --parameters | cut -f 1 -d &quot; &quot; | tail -n +2)
+TEMPLATE_PARAMS=$(oc process --namespace $TO_NAMESPACE -f app_repo/openshift-config-map-template.yml --parameters | cut -f 1 -d &quot; &quot; | tail -n +2)
 //# Filter out unneeded config arguments
-//TEMPLATE_ARGS=$(for item in $TEMPLATE_PARAMS; do printf &quot;$(grep ^$item= config_repo/vars.sh) &quot;; done)
-//oc process --namespace=$TO_NAMESPACE -f app_repo/openshift-config-map-template.yml $TEMPLATE_ARGS | oc apply -f - --namespace=$TO_NAMESPACE
-//oc tag $FROM_NAMESPACE/$APP_NAME:$FROM_TAG $TO_NAMESPACE/$APP_NAME:latest </command>
-//    </hudson.tasks.Shell>
+TEMPLATE_ARGS=$(for item in $TEMPLATE_PARAMS; do printf &quot;$(grep ^$item= config_repo/vars.sh) &quot;; done)
+echo "oc process --namespace=$TO_NAMESPACE -f app_repo/openshift-config-map-template.yml $TEMPLATE_ARGS | oc apply -f - --namespace=$TO_NAMESPACE"
+echo "oc tag $FROM_NAMESPACE/$APP_NAME:$FROM_TAG $TO_NAMESPACE/$APP_NAME:latest"
 }
