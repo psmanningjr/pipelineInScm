@@ -81,11 +81,11 @@ sh "echo 'oc process $TEMPLATE_NAME -n syngenta RUNTIME=$RUNTIME HOSTNAME_HTTP=$
 //# Get parameters expected by template
 fullparms = sh script: "oc process --namespace ${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml --parameters", 
                returnStdout: true
-  sh 'echo ${fullparms}"
+  sh 'echo ${fullparms}'
 //  sh "cut -f 1 -d ' ' ${fullparms)"
 //sh "tail -n +2 onlynames > ta"
 //  sh "cat tailed"
- def TEMPLATE_PARMS = readFile('tailed')
+ //def TEMPLATE_PARMS = readFile('tailed')
 //  TEMPLATE_PARAMS= (oc process --namespace ${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml --parameters | cut -f 1 -d &quot; &quot; | tail -n +2).execute.text
  // sh " echo ${TEMPLATE_PARAMS}"
   //# Filter out unneeded config arguments
