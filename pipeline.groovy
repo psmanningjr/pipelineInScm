@@ -23,6 +23,7 @@ node {
   APP_BRANCH = stuff.get('APP_BRANCH')
   CONFIG_REPO = stuff.get('configRepo')
   CONFIG_BRANCH = stuff.get('CONFIG_BRANCH')
+  sh "echo ${CONFIG_REPO}"
 
 //CONF_REPO = stuff[configRepo]
 //CONF_BRANCH = stuff[CONFIG_BRANCH]
@@ -56,7 +57,7 @@ node {
   // sh "ls -tal"
    //sh "ls -tal /tmp"
     dir( 'config_repo' ) { 
-        git branch: '${CONFIG_BRANCH}', credentialsId: 'mint-dev-jenkinsgitlabsecret', url:'${CONFIG_REPO}'
+      git branch: stuff.get('CONFIG_BRANCH'), credentialsId: 'mint-dev-jenkinsgitlabsecret', url: stuff.get('configRepo')'
         sh 'ls -tal'
     }
     
