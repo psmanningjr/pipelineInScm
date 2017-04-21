@@ -32,7 +32,7 @@ CONFIG_BRANCH = stuff.get('CONFIG_BRANCH')
   HOSTNAME_HTTP = stuff.get('HOSTNAME_HTTP')
   
   sh "echo config_repo = ${CONFIG_REPO}"
-  sh 'echo to= ${TO_NAMESPACE}'
+  sh "echo to= ${TO_NAMESPACE}"
 //CONF_REPO = stuff[configRepo]
 //CONF_BRANCH = stuff[CONFIG_BRANCH]
  //  def mvnHome
@@ -75,11 +75,11 @@ CONFIG_BRANCH = stuff.get('CONFIG_BRANCH')
      }
 
   //sh 'oc process $TEMPLATE_NAME -n syngenta RUNTIME=$RUNTIME HOSTNAME_HTTP=$HOSTNAME_HTTP | oc apply -f - -n $TO_NAMESPACE'
-  sh 'echo to= ${TO_NAMESPACE}'
-  sh 'oc project ${TO_NAMESPACE}'
+  sh "echo to= ${TO_NAMESPACE}"
+  sh "oc project ${TO_NAMESPACE}"
 //# Get parameters expected by template
 dir ( 'app_repo' ) { 
-  sh 'oc process --namespace ${TO_NAMESPACE} -f openshift-config-map-template.yml --parameters'
+  sh "oc process --namespace ${TO_NAMESPACE} -f openshift-config-map-template.yml --parameters"
 }
 //sh 'oc process --namespace ${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml --parameters | cut -f 1 -d " " | tail -n +2'
 //  TEMPLATE_PARAMS= (oc process --namespace ${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml --parameters | cut -f 1 -d &quot; &quot; | tail -n +2).execute.text
