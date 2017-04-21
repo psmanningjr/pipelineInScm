@@ -94,8 +94,21 @@ def info = readFile('/tmp/paraminfo').trim()
  
   //# Filter out unneeded config arguments
 // org TEMPLATE_ARGS=$(for item in $TEMPLATE_PARAMS; do printf &quot;$(grep ^$item= config_repo/vars.sh) &quot;; done)
-  sh "for item in ${TEMPLATE_PARAMS}; do printf " + '"' + " returnitem(item) " +'"' + "; done > /tmp/template.args"
+  List lines = TEMPLATE_PARAMS.split( '\n' ).findAll
+  String[] splitData = TEMPLATE_PARAMS.split("\n");
+ 
+    def source = new File('config_repo/vars.sh') 
+    def dest = new File('/tmp/template.args')
+  for (String eachSplit : splitData) {
+    println "processing ${eachSplit}"
+//    if(source.getText("UTF-8").find("^"+ eachSplit)){
+        dest.write(term)
+    }
+}
+
+//  sh "for item in ${TEMPLATE_PARAMS}; do printf " + '"' + " returnitem(item) " +'"' + "; done > /tmp/template.args"
   def TEMPLATE_ARGS = readFile('/tmp/template.args')
+println "args = $TEMPLATE_ARGS"
 // sh "oc process --namespace=${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml ${TEMPLATE_ARGS} | oc apply -f - --namespace=$TO_NAMESPACE"
 //echo "oc tag $FROM_NAMESPACE/$APP_NAME:$FROM_TAG $TO_NAMESPACE/$APP_NAME:latest"
 }
