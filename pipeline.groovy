@@ -19,9 +19,9 @@ parameters: [
 
 node {
   sh "echo ${stuff}"
-  //APP_REPO = stuff[0[appRepo]]
+  APP_REPO = stuff[0]
   //APP_BRANCH = stuff[APP_BRANCH]
-  //sh " echo ${APP_REPO}"
+  sh " echo ${APP_REPO}"
 }
 //CONF_REPO = stuff[configRepo]
 //CONF_BRANCH = stuff[CONFIG_BRANCH]
