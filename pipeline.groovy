@@ -19,7 +19,7 @@ parameters: [
 
 node {
   sh 'echo $stuff'
-  sh 'echo $stuff(appRepo)'
+  sh 'echo $stuff[appRepo]'
 }
 //APP_REPO = stuff[appRepo]
 //APP_BRANCH = stuff[APP_BRANCH]
