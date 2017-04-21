@@ -74,7 +74,8 @@ CONFIG_BRANCH = stuff.get('CONFIG_BRANCH')
         sh 'ls -tal'
      }
 
-  //sh "oc process ${TEMPLATE_NAME} -n syngenta RUNTIME=${RUNTIME} HOSTNAME_HTTP=${HOSTNAME_HTTP} | oc apply -f - -n ${TO_NAMESPACE}"
+  sh "oc process ${TEMPLATE_NAME} -n syngenta RUNTIME=${RUNTIME} HOSTNAME_HTTP=${HOSTNAME_HTTP} >/tmp/toprocess"
+  sh "oc apply -f /tmp/toprocess -n ${TO_NAMESPACE}"
  
   sh "oc project ${TO_NAMESPACE}"
 //# Get parameters expected by template
@@ -86,15 +87,16 @@ def info = readFile('/tmp/paraminfo').trim()
   println " paraminfo = ${info}"
   sh "cut -f 1 -d "+'" "' + " /tmp/paraminfo >/tmp/onlynames"
   sh "tail -n +2 /tmp/onlynames >/tmp/tailed"
-  def tailed = readFile('/tmp/tailed').trim()
-  println "tailed = ${tailed}"
+  def TEMPLATE_PARAM = readFile('/tmp/tailed').trim()
+  println "TEMPLATE_PARAM = ${TEMPLATE_PARAM}"
 //  TEMPLATE_PARAMS= (oc process --namespace ${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml --parameters | cut -f 1 -d &quot; &quot; | tail -n +2).execute.text
   
- // sh " echo ${TEMPLATE_PARAMS}"
+ 
   //# Filter out unneeded config arguments
 // org TEMPLATE_ARGS=$(for item in $TEMPLATE_PARAMS; do printf &quot;$(grep ^$item= config_repo/vars.sh) &quot;; done)
-//  TEMPLATE_ARGS= sh "for item in $TEMPLATE_PARAMS; do printf &quot; returnitem(item) &quot;; done"
-//  echo "oc process --namespace=${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml ${TEMPLATE_ARGS} | oc apply -f - --namespace=$TO_NAMESPACE"
+  sh "for item in ${TEMPLATE_PARAMS}; do printf " + '"' + " returnitem(item) " +'"' + "; done > /tmp/template.args"
+  def TEMPLATE_ARGS = readFile('/tmp/template.args')
+// sh "oc process --namespace=${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml ${TEMPLATE_ARGS} | oc apply -f - --namespace=$TO_NAMESPACE"
 //echo "oc tag $FROM_NAMESPACE/$APP_NAME:$FROM_TAG $TO_NAMESPACE/$APP_NAME:latest"
 }
 
