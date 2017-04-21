@@ -79,7 +79,8 @@ sh "echo 'oc process $TEMPLATE_NAME -n syngenta RUNTIME=$RUNTIME HOSTNAME_HTTP=$
  // sh "oc process ${TEMPLATE_NAME} -n syngenta RUNTIME=${RUNTIME} HOSTNAME_HTTP=${HOSTNAME_HTTP}"
  // sh "echo oc project ${TO_NAMESPACE}"
 //# Get parameters expected by template
-  sh 'ls -tal app_repo'
+ avar =  sh (returnStdout:true,script: 'ls -tal app_repo')
+  sh 'echo ${avar}'
 fullparms = sh(returnStdout:true,script: "oc process --namespace ${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml --parameters").trim()
   sh 'echo ${fullparms}'
 //  sh "cut -f 1 -d ' ' ${fullparms)"
