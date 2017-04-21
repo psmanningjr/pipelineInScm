@@ -78,10 +78,10 @@ CONFIG_BRANCH = stuff.get('CONFIG_BRANCH')
   sh "echo to= ${TO_NAMESPACE}"
   sh "oc project ${TO_NAMESPACE}"
 //# Get parameters expected by template
-dir ( 'app_repo' ) { 
-  sh "oc process --namespace ${TO_NAMESPACE} -f openshift-config-map-template.yml --parameters"
-}
-//sh 'oc process --namespace ${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml --parameters | cut -f 1 -d " " | tail -n +2'
+//dir ( 'app_repo' ) { 
+//  sh "oc process --namespace ${TO_NAMESPACE} -f openshift-config-map-template.yml --parameters"
+//}
+sh "oc process --namespace ${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml --parameters | cut -f 1 -d " " | tail -n +2"
 //  TEMPLATE_PARAMS= (oc process --namespace ${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml --parameters | cut -f 1 -d &quot; &quot; | tail -n +2).execute.text
   
  // sh " echo ${TEMPLATE_PARAMS}"
