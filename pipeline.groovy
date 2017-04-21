@@ -81,6 +81,7 @@ sh "echo 'oc process $TEMPLATE_NAME -n syngenta RUNTIME=$RUNTIME HOSTNAME_HTTP=$
 //# Get parameters expected by template
  sh (script: 'ls -tal app_repo >adir')
   sh ' cat adir'
+  sh 'oc process --namespace $TO_NAMESPACE -f app_repo/openshift-config-map-template.yml --parameters | cut -f 1 -d " " | tail -n +2'
   def result = readFile(file: 'adir')
   sh 'echo result = ${result}'
  def avar =  sh (returnStdout:true, returnStatus:false, script: 'ls -tal app_repo/openshift-config-map-template.yml').trim()
