@@ -46,10 +46,10 @@ parameters: [
    
   // sh "ls -tal"
    //sh "ls -tal /tmp"
-    dir config_repo { sh 'pwd'
+    dir( 'config_repo' ) { sh 'pwd'
     }
     
-    dir app_repo { sh 'pwd'
+    dir 'app_repo' { sh 'pwd'
                  }
 //  <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.6">
 //    <scms>
