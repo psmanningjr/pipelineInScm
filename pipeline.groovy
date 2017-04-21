@@ -74,16 +74,18 @@ CONFIG_BRANCH = stuff.get('CONFIG_BRANCH')
         sh 'ls -tal'
      }
 
-  sh "oc process ${TEMPLATE_NAME} -n syngenta RUNTIME=${RUNTIME} HOSTNAME_HTTP=${HOSTNAME_HTTP} | oc apply -f - -n ${TO_NAMESPACE}"
+  //sh "oc process ${TEMPLATE_NAME} -n syngenta RUNTIME=${RUNTIME} HOSTNAME_HTTP=${HOSTNAME_HTTP} | oc apply -f - -n ${TO_NAMESPACE}"
  
   sh "oc project ${TO_NAMESPACE}"
 //# Get parameters expected by template
-//sh "oc process --namespace ${TO_NAMESPACE} -f openshift-config-map-template.yml --parameters >varinfo"
-//}
   sh "ls -tal >adir"
   def dir = readFile('adir').trim()
   println " my dir output $dir"
-//sh returnStdout:true, script: "oc process --namespace ${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml --parameters | cut -f 1 -d "+'" "' + " | tail -n +2"
+sh script: "oc process --namespace ${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml --parameters >paraminfo"
+  sh "cut -f 1 -d "+'" "' + " >onlynames"
+  sh "tail -n +2 >tailed"
+  def tailed = readFile('tailed').trim()
+  println "tailed = ${tailed}"
 //  TEMPLATE_PARAMS= (oc process --namespace ${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml --parameters | cut -f 1 -d &quot; &quot; | tail -n +2).execute.text
   
  // sh " echo ${TEMPLATE_PARAMS}"
