@@ -33,21 +33,21 @@ node {
   HOSTNAME_HTTP = stuff.get('HOSTNAME_HTTP')
   
   println "______________________________________________________________________________________________________"
-  println "    Get ${CONFIG_REPO} Configuration Repo 
+  println "    Get ${CONFIG_REPO} Configuration Repo" 
   dir( 'config_repo' ) { 
       git branch: CONFIG_BRANCH, credentialsId: 'mint-dev-jenkinsgitlabsecret', url: CONFIG_REPO
       sh 'ls -tal'
   }
     
   println "______________________________________________________________________________________________________"
-  println "    Get ${APP_REPO} Application Repo 
+  println "    Get ${APP_REPO} Application Repo" 
   dir ( 'app_repo' ) { 
       git branch: APP_BRANCH, credentialsId: 'mint-dev-jenkinsgitlabsecret', url: APP_REPO
       sh 'ls -tal'
   }
 
   println "______________________________________________________________________________________________________"
-  println "    Create ${TO_NAMESPACE} Deployment configs etc. for ${TEMPLATE_NAME} if needed 
+  println "    Create ${TO_NAMESPACE} Deployment configs etc. for ${TEMPLATE_NAME} if needed "
 
   sh "oc process ${TEMPLATE_NAME} -n syngenta RUNTIME=${RUNTIME} HOSTNAME_HTTP=${HOSTNAME_HTTP} >/tmp/toprocess"
   sh "oc apply -f /tmp/toprocess -n ${TO_NAMESPACE}"
@@ -55,7 +55,7 @@ node {
   sh "oc project ${TO_NAMESPACE}"
   
   println "______________________________________________________________________________________________________"
-  println "    Create/update Configmap in ${TO_NAMESPACE} for ${APP_NAME} 
+  println "    Create/update Configmap in ${TO_NAMESPACE} for ${APP_NAME} "
 
   //# Get parameters expected by template
   sh script: "oc process --namespace ${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml --parameters >/tmp/paraminfo "
@@ -87,6 +87,6 @@ node {
   sh "oc apply -f /tmp/configmap --namespace=${TO_NAMESPACE}"
 
   println "______________________________________________________________________________________________________"
-  println "    Promote ${FROM_NAMESPACE} to ${TO_NAMESPACE} for ${APP_NAME} 
+  println "    Promote ${FROM_NAMESPACE} to ${TO_NAMESPACE} for ${APP_NAME}" 
   sh "oc tag ${FROM_NAMESPACE}/${APP_NAME}:${FROM_TAG} ${TO_NAMESPACE}/${APP_NAME}:latest"
 }
