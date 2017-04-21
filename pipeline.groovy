@@ -85,7 +85,6 @@ echo "oc process --namespace=$TO_NAMESPACE -f app_repo/openshift-config-map-temp
 echo "oc tag $FROM_NAMESPACE/$APP_NAME:$FROM_TAG $TO_NAMESPACE/$APP_NAME:latest"
 }
 
-returnItem (item)
-{
-  return grep '^${item}=' config_repo/vars.sh
+returnItem (item) {
+  return sh 'grep "^${item}=" config_repo/vars.sh'
 }
