@@ -95,14 +95,19 @@ def info = readFile('/tmp/paraminfo').trim()
   //# Filter out unneeded config arguments
 // org TEMPLATE_ARGS=$(for item in $TEMPLATE_PARAMS; do printf &quot;$(grep ^$item= config_repo/vars.sh) &quot;; done)
   //List lines = TEMPLATE_PARAMS.split( '\n' ).findAll
-  String[] splitData = TEMPLATE_PARAMS.split("\n");
- sh "cut -f 1 -d "+'"="' + " config_repo/vars.sh >/tmp/configVarNames"
-    def configVars = readFile('/tmp/configVarNames') 
-  println "configvars = ${configVars}"
+  //String[] splitData = TEMPLATE_PARAMS.split("\n");
+ //sh "cut -f 1 -d "+'"="' + " config_repo/vars.sh >/tmp/configVarNames"
+ //   def configVars = readFile('/tmp/configVarNames') 
+   def TEMPLATE_ARGS =""
+  def configVars = readFile('config_repo/vars.sh') 
+  String[] splitData = configVars.split("\n");
+  
+  //println "configvars = ${configVars}"
   for (String eachSplit : splitData) {
     println "processing ${eachSplit}"
-    if(configVars.contains(eachSplit)){
+    if(TEMPLATE_PARAMS.contains(eachSplit.substring(0,eachSplit.indexof("=")))){
         println "found match"
+      TEMPLATE_ARGS = TEMPLATE_ARGS+ '"' + 
     }
    }
 
