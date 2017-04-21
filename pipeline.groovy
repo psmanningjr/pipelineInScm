@@ -79,14 +79,15 @@ sh "echo oc process $TEMPLATE_NAME -n syngenta RUNTIME=$RUNTIME HOSTNAME_HTTP=$H
 sh "echo oc project $TO_NAMESPACE"
 //# Get parameters expected by template
 TEMPLATE_PARAMS= sh 'oc process --namespace $TO_NAMESPACE -f app_repo/openshift-config-map-template.yml --parameters | cut -f 1 -d &quot; &quot; | tail -n +2'
-//# Filter out unneeded config arguments
+  sh ' echo ${TEMPLATE_PARAMS'
+  //# Filter out unneeded config arguments
 //TEMPLATE_ARGS=$(for item in $TEMPLATE_PARAMS; do printf &quot;$(grep ^$item= config_repo/vars.sh) &quot;; done)
 ('grep ^${item}= config_
-  TEMPLATE_ARGS= sh 'for item in $TEMPLATE_PARAMS; do printf &quot; returnitem(item) &quot;; done'
+//  TEMPLATE_ARGS= sh 'for item in $TEMPLATE_PARAMS; do printf &quot; returnitem(item) &quot;; done'
 echo "oc process --namespace=$TO_NAMESPACE -f app_repo/openshift-config-map-template.yml $TEMPLATE_ARGS | oc apply -f - --namespace=$TO_NAMESPACE"
 echo "oc tag $FROM_NAMESPACE/$APP_NAME:$FROM_TAG $TO_NAMESPACE/$APP_NAME:latest"
 }
 
-returnitem (item) {
-  sh "grep '^${item}=' config_repo/vars.sh"
-}
+//returnitem (item) {
+//  sh "grep '^${item}=' config_repo/vars.sh"
+//}
