@@ -84,7 +84,7 @@ TEMPLATE_PARAMS= sh "oc process --namespace ${TO_NAMESPACE} -f app_repo/openshif
   sh " echo ${TEMPLATE_PARAMS}"
   //# Filter out unneeded config arguments
 // org TEMPLATE_ARGS=$(for item in $TEMPLATE_PARAMS; do printf &quot;$(grep ^$item= config_repo/vars.sh) &quot;; done)
-  TEMPLATE_ARGS= sh "for item in $TEMPLATE_PARAMS; do printf &quot; returnitem(item) &quot;; done"
+//  TEMPLATE_ARGS= sh "for item in $TEMPLATE_PARAMS; do printf &quot; returnitem(item) &quot;; done"
 //  echo "oc process --namespace=${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml ${TEMPLATE_ARGS} | oc apply -f - --namespace=$TO_NAMESPACE"
 //echo "oc tag $FROM_NAMESPACE/$APP_NAME:$FROM_TAG $TO_NAMESPACE/$APP_NAME:latest"
 }
