@@ -94,7 +94,7 @@ def info = readFile('/tmp/paraminfo').trim()
  
   //# Filter out unneeded config arguments
 // org TEMPLATE_ARGS=$(for item in $TEMPLATE_PARAMS; do printf &quot;$(grep ^$item= config_repo/vars.sh) &quot;; done)
-  List lines = TEMPLATE_PARAMS.split( '\n' ).findAll
+  //List lines = TEMPLATE_PARAMS.split( '\n' ).findAll
   String[] splitData = TEMPLATE_PARAMS.split("\n");
  
     def source = new File('config_repo/vars.sh') 
