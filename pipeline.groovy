@@ -30,7 +30,7 @@ parameters: [
  //     }
  //  }
   
-  node('maven') {
+  //node('maven') {
    //  sh "echo ${stuff}"
 
      //sh "echo"
@@ -40,13 +40,17 @@ parameters: [
    // sh "ls -tal"
     //scmdump = scm.dump()
     //sh 'echo scm dump = ${scmdump}'
-    sh 'mvn --version'
-  }
+   // sh 'mvn --version'
+  //}
   node('master') {
    
-   sh "ls -tal"
-   sh "ls -tal /tmp"
-
+  // sh "ls -tal"
+   //sh "ls -tal /tmp"
+    dir config_repo { sh 'pwd'
+    }
+    
+    dir app_repo { sh 'pwd'
+                 }
 //  <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.6">
 //    <scms>
 //      <hudson.plugins.git.GitSCM plugin="git@3.0.0">
