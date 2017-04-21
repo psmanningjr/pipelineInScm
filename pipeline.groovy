@@ -23,7 +23,7 @@ node {
   APP_BRANCH = stuff.get('APP_BRANCH')
   CONFIG_REPO = stuff.get('configRepo')
   CONFIG_BRANCH = stuff.get('CONFIG_BRANCH')
-}
+
 //CONF_REPO = stuff[configRepo]
 //CONF_BRANCH = stuff[CONFIG_BRANCH]
  //  def mvnHome
@@ -51,7 +51,7 @@ node {
     //sh 'echo scm dump = ${scmdump}'
    // sh 'mvn --version'
   //}
-  node('master') {
+  //node('master') {
    
   // sh "ls -tal"
    //sh "ls -tal /tmp"
