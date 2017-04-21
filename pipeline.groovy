@@ -81,10 +81,11 @@ CONFIG_BRANCH = stuff.get('CONFIG_BRANCH')
   sh "ls -tal >adir"
   def dir = readFile('adir').trim()
   println " my dir output $dir"
-sh script: "oc process --namespace ${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml --parameters >paraminfo"
-  sh "cut -f 1 -d "+'" "' + " >onlynames"
-  sh "tail -n +2 >tailed"
-  def tailed = readFile('tailed').trim()
+sh script: "oc process --namespace ${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml --parameters >/tmp/paraminfo"
+ def info = readFile('/tmp/paraminfo').trim()
+  sh "cut -f 1 -d "+'" "' + " >/tmp/onlynames"
+  sh "tail -n +2 >/tmp/tailed"
+  def tailed = readFile('/tmp/tailed').trim()
   println "tailed = ${tailed}"
 //  TEMPLATE_PARAMS= (oc process --namespace ${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml --parameters | cut -f 1 -d &quot; &quot; | tail -n +2).execute.text
   
