@@ -15,10 +15,12 @@ parameters: [
   choice(choices: "integration\nidentity\nmaterial\nsecurity", description: '', name: 'app_name')
 
   ]
-APP_REPO = stuff[appRepo]
-APP_BRANCH = stuff[APP_BRANCH]
-CONF_REPO = stuff[configRepo]
-CONF_BRANCH = stuff[CONFIG_BRANCH]
+sh 'echo $stuff'
+sh 'echo $stuff(appRepo)'
+//APP_REPO = stuff[appRepo]
+//APP_BRANCH = stuff[APP_BRANCH]
+//CONF_REPO = stuff[configRepo]
+//CONF_BRANCH = stuff[CONFIG_BRANCH]
 
 
  //node {
