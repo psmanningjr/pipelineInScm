@@ -10,8 +10,8 @@ parameters: [
   choice(choices: "mint-integration\nidentity\nmaterial\nmint-system-integration\nmint-security", description: '', name: 'templateName'),
   string(defaultValue: '', description: '', name: 'HOSTNAME_HTTP'),
   string(defaultValue: 'QA', description: '', name: 'RUNTIME'),
-  string(defaultValue: 'QA', description: '', name: 'APP_BRANCH'),
-  string(defaultValue: 'QA', description: '', name: 'CONFIG_BRANCH'),
+  string(defaultValue: 'openshift', description: '', name: 'APP_BRANCH'),
+  string(defaultValue: 'master', description: '', name: 'CONFIG_BRANCH'),
   choice(choices: "integration\nidentity\nmaterial\nsecurity", description: '', name: 'app_name')
 
   ]
@@ -62,7 +62,7 @@ node {
     }
     
     dir ( 'app_repo' ) { 
-      git branch: '${APP_BRANCH}', credentialsId: 'mint-dev-jenkinsgitlabsecret', url:'${APP_REPO}'
+      git branch: 'stuff.get('APP_BRANCH'), credentialsId: 'mint-dev-jenkinsgitlabsecret', url: stuff.get('appRepo')
         sh 'ls -tal'
      }
 //  <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.6">
