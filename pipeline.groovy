@@ -62,7 +62,7 @@ node {
     }
     
     dir ( 'app_repo' ) { 
-      git branch: 'stuff.get('APP_BRANCH'), credentialsId: 'mint-dev-jenkinsgitlabsecret', url: stuff.get('appRepo')
+      git branch: stuff.get('APP_BRANCH'), credentialsId: 'mint-dev-jenkinsgitlabsecret', url: stuff.get('appRepo')
         sh 'ls -tal'
      }
 //  <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.6">
