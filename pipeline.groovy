@@ -57,7 +57,7 @@ node {
   // sh "ls -tal"
    //sh "ls -tal /tmp"
     dir( 'config_repo' ) { 
-      git branch: stuff.get('CONFIG_BRANCH'), credentialsId: 'mint-dev-jenkinsgitlabsecret', url: stuff.get('configRepo')'
+      git branch: stuff.get('CONFIG_BRANCH'), credentialsId: 'mint-dev-jenkinsgitlabsecret', url: stuff.get('configRepo')
         sh 'ls -tal'
     }
     
