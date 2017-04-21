@@ -87,8 +87,8 @@ def info = readFile('/tmp/paraminfo').trim()
   println " paraminfo = ${info}"
   sh "cut -f 1 -d "+'" "' + " /tmp/paraminfo >/tmp/onlynames"
   sh "tail -n +2 /tmp/onlynames >/tmp/tailed"
-  def TEMPLATE_PARAM = readFile('/tmp/tailed').trim()
-  println "TEMPLATE_PARAM = ${TEMPLATE_PARAM}"
+  def TEMPLATE_PARAMS = readFile('/tmp/tailed').trim()
+  println "TEMPLATE_PARAMS = ${TEMPLATE_PARAMS}"
 //  TEMPLATE_PARAMS= (oc process --namespace ${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml --parameters | cut -f 1 -d &quot; &quot; | tail -n +2).execute.text
   
  
