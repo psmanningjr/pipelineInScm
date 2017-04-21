@@ -4,7 +4,7 @@
 stuff = input message: 'Select Promotion Parameters', 
 parameters: [
   choice(choices: "mint-dev\nmint-test\nmint-stage\nmint-system-integration\nmint-training\nmint-prod", description: '', name: 'from'),
-  choice(choices: "mint-test\nmint-test\nmint-stage\nmint-system-integration\nmint-training\nmint-prod", description: '', name: 'to'),
+  choice(choices: "mint-test\nmint-stage\nmint-system-integration\nmint-training\nmint-prod", description: '', name: 'to'),
   choice(choices: "git@10.127.183.7:mint/mint-integration.git\ngit@10.127.183.7:mint/identity.git\ngit@10.127.183.7:mint/material.git\ngit@10.127.183.7:mint/mint-security-admin.git", description: '', name: 'appRepo'),
   choice(choices: "git@10.127.183.7:openshift/test-configs.git\ngit@10.127.183.7:openshift/test-configs.git\ngit@10.127.183.7:openshift/stage-configs.git\ngit@10.127.183.7:openshift/system-integration-configs.git\ngit@10.127.183.7:openshift/training-configs.git\ngit@10.127.183.7:openshift/prod-configs.git", description: '', name: 'configRepo'),
   choice(choices: "mint-integration\nidentity\nmaterial\nmint-system-integration\nmint-security", description: '', name: 'templateName'),
@@ -73,27 +73,14 @@ CONFIG_BRANCH = stuff.get('CONFIG_BRANCH')
       git branch: APP_BRANCH, credentialsId: 'mint-dev-jenkinsgitlabsecret', url: APP_REPO
         sh 'ls -tal'
      }
-//      <command>ls app_repo
-//ls config_repo
-sh "oc process $TEMPLATE_NAME -n syngenta RUNTIME=$RUNTIME HOSTNAME_HTTP=$HOSTNAME_HTTP | oc apply -f - -n $TO_NAMESPACE"
- // sh "oc process ${TEMPLATE_NAME} -n syngenta RUNTIME=${RUNTIME} HOSTNAME_HTTP=${HOSTNAME_HTTP}"
- // sh "echo oc project ${TO_NAMESPACE}"
-//# Get parameters expected by template
- sh (script: 'ls -tal app_repo >adir')
-  sh ' cat adir'
-  sh 'oc process --namespace $TO_NAMESPACE -f app_repo/openshift-config-map-template.yml --parameters | cut -f 1 -d " " | tail -n +2'
-  def result = readFile('adir').trim()
-  sh 'echo result = ${result}'
+
+  //sh 'oc process $TEMPLATE_NAME -n syngenta RUNTIME=$RUNTIME HOSTNAME_HTTP=$HOSTNAME_HTTP | oc apply -f - -n $TO_NAMESPACE'
   
- def avar =  sh (returnStdout:true, returnStatus:false, script: 'ls -tal app_repo/openshift-config-map-template.yml').trim()
-  sh 'echo avar = "${avar}"'
-fullparms = sh(returnStdout:true,script: "oc process --namespace ${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml --parameters").trim()
-  sh 'echo ${fullparms}'
-//  sh "cut -f 1 -d ' ' ${fullparms)"
-//sh "tail -n +2 onlynames > ta"
-//  sh "cat tailed"
- //def TEMPLATE_PARMS = readFile('tailed')
+  sh 'oc project ${TO_NAMESPACE}'
+//# Get parameters expected by template
+sh 'oc process --namespace ${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml --parameters | cut -f 1 -d " " | tail -n +2'
 //  TEMPLATE_PARAMS= (oc process --namespace ${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml --parameters | cut -f 1 -d &quot; &quot; | tail -n +2).execute.text
+  
  // sh " echo ${TEMPLATE_PARAMS}"
   //# Filter out unneeded config arguments
 // org TEMPLATE_ARGS=$(for item in $TEMPLATE_PARAMS; do printf &quot;$(grep ^$item= config_repo/vars.sh) &quot;; done)
