@@ -19,10 +19,10 @@ parameters: [
 
 node {
   sh "echo ${stuff}"
-//  APP_REPO = stuff.get('appRepo')
-//  APP_BRANCH = stuff.get('APP_BRANCH')
+APP_REPO = stuff.get('appRepo')
+APP_BRANCH = stuff.get('APP_BRANCH')
 CONFIG_REPO = stuff.get('configRepo')
-//  CONFIG_BRANCH = stuff.get('CONFIG_BRANCH')
+CONFIG_BRANCH = stuff.get('CONFIG_BRANCH')
   sh "echo config_repo = ${CONFIG_REPO}"
 
 //CONF_REPO = stuff[configRepo]
@@ -57,7 +57,7 @@ CONFIG_REPO = stuff.get('configRepo')
   // sh "ls -tal"
    //sh "ls -tal /tmp"
     dir( 'config_repo' ) { 
-      git branch: stuff.get('CONFIG_BRANCH'), credentialsId: 'mint-dev-jenkinsgitlabsecret', url: stuff.get('configRepo')
+      git branch: CONFIG_BRANCH, credentialsId: 'mint-dev-jenkinsgitlabsecret', url: CONFIG_REPO
         sh 'ls -tal'
     }
     
