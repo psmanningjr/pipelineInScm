@@ -3,16 +3,16 @@
 //input message: 'message', ok: 'do it', parameters: [choice(choices: "red\ngreen\npurple\n'], description: '', name: 'color')
 stuff = input message: 'Select Promotion Parameters', 
 parameters: [
-  //choice(choices: "mint-dev\nmint-test\nmint-stage\nmint-system-integration\nmint-training\nmint-prod", description: '', name: 'from'),
-  //choice(choices: "mint-dev\nmint-test\nmint-stage\nmint-system-integration\nmint-training\nmint-prod", description: '', name: 'to'),
+  choice(choices: "mint-dev\nmint-test\nmint-stage\nmint-system-integration\nmint-training\nmint-prod", description: '', name: 'from'),
+  choice(choices: "mint-dev\nmint-test\nmint-stage\nmint-system-integration\nmint-training\nmint-prod", description: '', name: 'to'),
   choice(choices: "git@10.127.183.7:mint/mint-integration.git\ngit@10.127.183.7:mint/identity.git\ngit@10.127.183.7:mint/material.git\ngit@10.127.183.7:mint/mint-security-admin.git", description: '', name: 'appRepo'),
-  //choice(choices: "git@10.127.183.7:openshift/dev-configs.git\ngit@10.127.183.7:openshift/test-configs.git\ngit@10.127.183.7:openshift/stage-configs.git\ngit@10.127.183.7:openshift/system-integration-configs.git\ngit@10.127.183.7:openshift/training-configs.git\ngit@10.127.183.7:openshift/prod-configs.git", description: '', name: 'configRepo'),
-  //choice(choices: "mint-integration\nidentity\nmaterial\nmint-system-integration\nmint-security", description: '', name: 'templateName'),
-  //string(defaultValue: '', description: '', name: 'HOSTNAME_HTTP'),
-  //string(defaultValue: 'QA', description: '', name: 'RUNTIME'),
+  choice(choices: "git@10.127.183.7:openshift/dev-configs.git\ngit@10.127.183.7:openshift/test-configs.git\ngit@10.127.183.7:openshift/stage-configs.git\ngit@10.127.183.7:openshift/system-integration-configs.git\ngit@10.127.183.7:openshift/training-configs.git\ngit@10.127.183.7:openshift/prod-configs.git", description: '', name: 'configRepo'),
+  choice(choices: "mint-integration\nidentity\nmaterial\nmint-system-integration\nmint-security", description: '', name: 'templateName'),
+  string(defaultValue: '', description: '', name: 'HOSTNAME_HTTP'),
+  string(defaultValue: 'QA', description: '', name: 'RUNTIME'),
   string(defaultValue: 'QA', description: '', name: 'APP_BRANCH'),
-  //string(defaultValue: 'QA', description: '', name: 'CONFIG_BRANCH'),
-  //choice(choices: "integration\nidentity\nmaterial\nsecurity", description: '', name: 'app_name')
+  string(defaultValue: 'QA', description: '', name: 'CONFIG_BRANCH'),
+  choice(choices: "integration\nidentity\nmaterial\nsecurity", description: '', name: 'app_name')
 
   ]
 
@@ -20,8 +20,9 @@ parameters: [
 node {
   sh "echo ${stuff}"
   APP_REPO = stuff.get('appRepo')
-  //APP_BRANCH = stuff[APP_BRANCH]
-  sh " echo ${APP_REPO}"
+  APP_BRANCH = stuff.get('APP_BRANCH')
+  CONFIG_REPO = stuff.get('configRepo')
+  CONFIG_BRANCH = stuff.get('CONFIG_BRANCH')
 }
 //CONF_REPO = stuff[configRepo]
 //CONF_BRANCH = stuff[CONFIG_BRANCH]
