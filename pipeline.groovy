@@ -107,11 +107,14 @@ def info = readFile('/tmp/paraminfo').trim()
   //println "configvars = ${configVars}"
   for (String eachSplit : splitData) {
     println "processing ${eachSplit}"
-    compare = eachSplit.substring(0,eachSplit.indexOf("="))
-    println "compare with ${compare}"
-    if(TEMPLATE_PARAMS.contains(eachSplit.substring(0,eachSplit.indexOf("=")))){
-        println "found match"
-      TEMPLATE_ARGS = TEMPLATE_ARGS + '"' + eachSplit + '" '
+    indexOfEquals = eachSplit.indexOf("=")
+    if (indexOfEquals > -1 ) {
+      compare = eachSplit.substring(0,indexOfEquals)
+      println "compare with ${compare}"
+      if(TEMPLATE_PARAMS.contains(compare)){
+          println "found match"
+        TEMPLATE_ARGS = TEMPLATE_ARGS + '"' + eachSplit + '" '
+      }
     }
    }
 
