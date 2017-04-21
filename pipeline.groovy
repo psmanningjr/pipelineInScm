@@ -122,8 +122,9 @@ def info = readFile('/tmp/paraminfo').trim()
 //  sh "for item in ${TEMPLATE_PARAMS}; do printf " + '"' + " returnitem(item) " +'"' + "; done > /tmp/template.args"
 //  def TEMPLATE_ARGS = readFile('/tmp/template.args')
 println "args = $TEMPLATE_ARGS"
-// sh "oc process --namespace=${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml ${TEMPLATE_ARGS} | oc apply -f - --namespace=$TO_NAMESPACE"
-//echo "oc tag $FROM_NAMESPACE/$APP_NAME:$FROM_TAG $TO_NAMESPACE/$APP_NAME:latest"
+sh "oc process --namespace=${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml ${TEMPLATE_ARGS} >/tmp/configmap"
+  sh "oc apply -f /tmp/configmap --namespace=${TO_NAMESPACE}"
+  sh "oc tag ${FROM_NAMESPACE}/${APP_NAME}:${FROM_TAG} ${TO_NAMESPACE}/${APP_NAME}:latest"
 }
 
 
