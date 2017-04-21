@@ -8,7 +8,7 @@ parameters: [
   choice(choices: "git@10.127.183.7:mint/mint-integration.git\ngit@10.127.183.7:mint/identity.git\ngit@10.127.183.7:mint/material.git\ngit@10.127.183.7:mint/mint-security-admin.git", description: '', name: 'appRepo'),
   choice(choices: "git@10.127.183.7:openshift/dev-configs.git\ngit@10.127.183.7:openshift/test-configs.git\ngit@10.127.183.7:openshift/stage-configs.git\ngit@10.127.183.7:openshift/system-integration-configs.git\ngit@10.127.183.7:openshift/training-configs.git\ngit@10.127.183.7:openshift/prod-configs.git", description: '', name: 'configRepo'),
   choice(choices: "mint-integration\nidentity\nmaterial\nmint-system-integration\nmint-security", description: '', name: 'templateName'),
-  string(defaultValue: '', description: '', name: 'HOSTNAME_HTTP'),
+  string(defaultValue: '.fed5.syngenta-usae.openshiftapps.com/', description: '', name: 'HOSTNAME_HTTP'),
   string(defaultValue: 'QA', description: '', name: 'RUNTIME'),
   string(defaultValue: 'openshift', description: '', name: 'APP_BRANCH'),
   string(defaultValue: 'master', description: '', name: 'CONFIG_BRANCH'),
@@ -79,12 +79,12 @@ CONFIG_BRANCH = stuff.get('CONFIG_BRANCH')
   sh "oc process ${TEMPLATE_NAME} -n syngenta RUNTIME=${RUNTIME} HOSTNAME_HTTP=${HOSTNAME_HTTP}"
   sh "echo oc project ${TO_NAMESPACE}"
 //# Get parameters expected by template
-  TEMPLATE_PARAMS= sh 'oc process --namespace ${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml --parameters | cut -f 1 -d &quot; &quot; | tail -n +2'
+  TEMPLATE_PARAMS= sh "oc process --namespace ${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml --parameters | cut -f 1 -d &quot; &quot; | tail -n +2"
   sh ' echo ${TEMPLATE_PARAMS}'
   //# Filter out unneeded config arguments
 //TEMPLATE_ARGS=$(for item in $TEMPLATE_PARAMS; do printf &quot;$(grep ^$item= config_repo/vars.sh) &quot;; done)
 //  TEMPLATE_ARGS= sh 'for item in $TEMPLATE_PARAMS; do printf &quot; returnitem(item) &quot;; done'
-echo "oc process --namespace=$TO_NAMESPACE -f app_repo/openshift-config-map-template.yml $TEMPLATE_ARGS | oc apply -f - --namespace=$TO_NAMESPACE"
+  echo "oc process --namespace=${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml ${TEMPLATE_ARGS} | oc apply -f - --namespace=$TO_NAMESPACE"
 echo "oc tag $FROM_NAMESPACE/$APP_NAME:$FROM_TAG $TO_NAMESPACE/$APP_NAME:latest"
 }
 
