@@ -99,8 +99,10 @@ def info = readFile('/tmp/paraminfo').trim()
  //sh "cut -f 1 -d "+'"="' + " config_repo/vars.sh >/tmp/configVarNames"
  //   def configVars = readFile('/tmp/configVarNames') 
    def TEMPLATE_ARGS =""
-  def configVars = readFile('config_repo/vars.sh') 
-  String[] splitData = configVars.split(" ");
+  def configVars = readFile('config_repo/vars.sh')
+  String[] splitData = configVars.split("\n");
+  count = splitData.size()
+  println "size of splitData = ${count}"
   println "config vars = ${configVars}"
   //println "configvars = ${configVars}"
   for (String eachSplit : splitData) {
