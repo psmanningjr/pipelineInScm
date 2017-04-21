@@ -107,7 +107,7 @@ def info = readFile('/tmp/paraminfo').trim()
     println "processing ${eachSplit}"
     if(TEMPLATE_PARAMS.contains(eachSplit.substring(0,eachSplit.indexof("=")))){
         println "found match"
-      TEMPLATE_ARGS = TEMPLATE_ARGS+ '"' + 
+      TEMPLATE_ARGS = TEMPLATE_ARGS+ '"' + eachSplit + '"'
     }
    }
 
