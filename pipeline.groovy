@@ -23,6 +23,12 @@ APP_REPO = stuff.get('appRepo')
 APP_BRANCH = stuff.get('APP_BRANCH')
 CONFIG_REPO = stuff.get('configRepo')
 CONFIG_BRANCH = stuff.get('CONFIG_BRANCH')
+  TEMPLATE_NAME = stuff.get('templateName')
+  RUNTIME = stuff.get('RUNTIME')
+  APP_NAME = stuff.get('app_name')
+  TO_NAMESPACE = stuff.get('to')
+  FROM_NAMESPACE = stuff.get('from')
+  TEMPLATE_NAME = stuff.get('templateName')
   sh "echo config_repo = ${CONFIG_REPO}"
 
 //CONF_REPO = stuff[configRepo]
@@ -62,7 +68,7 @@ CONFIG_BRANCH = stuff.get('CONFIG_BRANCH')
     }
     
     dir ( 'app_repo' ) { 
-      git branch: stuff.get('APP_BRANCH'), credentialsId: 'mint-dev-jenkinsgitlabsecret', url: stuff.get('appRepo')
+      git branch: APP_BRANCH, credentialsId: 'mint-dev-jenkinsgitlabsecret', url: APP_REPO
         sh 'ls -tal'
      }
 //  <canRoam>true</canRoam>
@@ -75,8 +81,8 @@ CONFIG_BRANCH = stuff.get('CONFIG_BRANCH')
 //    <hudson.tasks.Shell>
 //      <command>ls app_repo
 //ls config_repo
-//// sh 'oc process $TEMPLATE_NAME -n syngenta RUNTIME=$RUNTIME HOSTNAME_HTTP=$HOSTNAME_HTTP | oc apply -f - -n $TO_NAMESPACE'
-//oc project $TO_NAMESPACE
+sh 'echo oc process $TEMPLATE_NAME -n syngenta RUNTIME=$RUNTIME HOSTNAME_HTTP=$HOSTNAME_HTTP | oc apply -f - -n $TO_NAMESPACE'
+sh ' echo oc project $TO_NAMESPACE'
 //# Get parameters expected by template
 //TEMPLATE_PARAMS=$(oc process --namespace $TO_NAMESPACE -f app_repo/openshift-config-map-template.yml --parameters | cut -f 1 -d &quot; &quot; | tail -n +2)
 //# Filter out unneeded config arguments
