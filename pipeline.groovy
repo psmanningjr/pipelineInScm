@@ -104,7 +104,7 @@ def info = readFile('/tmp/paraminfo').trim()
 //    if(source.getText("UTF-8").find("^"+ eachSplit)){
         dest.write(term)
     }
-}
+
 
 //  sh "for item in ${TEMPLATE_PARAMS}; do printf " + '"' + " returnitem(item) " +'"' + "; done > /tmp/template.args"
   def TEMPLATE_ARGS = readFile('/tmp/template.args')
