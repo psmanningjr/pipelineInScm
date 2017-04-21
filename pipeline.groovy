@@ -49,7 +49,7 @@ parameters: [
     dir( 'config_repo' ) { sh 'pwd'
     }
     
-    dir 'app_repo' { sh 'pwd'
+    dir path: 'app_repo' { sh 'pwd'
                  }
 //  <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.6">
 //    <scms>
