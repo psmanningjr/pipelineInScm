@@ -21,9 +21,9 @@ node {
   sh "echo ${stuff}"
 //  APP_REPO = stuff.get('appRepo')
 //  APP_BRANCH = stuff.get('APP_BRANCH')
-CONFIG_REPO = stuff('configRepo')
+CONFIG_REPO = stuff.get('configRepo')
 //  CONFIG_BRANCH = stuff.get('CONFIG_BRANCH')
-  sh "echo ${CONFIG_REPO}"
+  sh "echo config_repo = ${CONFIG_REPO}"
 
 //CONF_REPO = stuff[configRepo]
 //CONF_BRANCH = stuff[CONFIG_BRANCH]
