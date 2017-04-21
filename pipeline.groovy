@@ -100,7 +100,7 @@ def info = readFile('/tmp/paraminfo').trim()
     def configVars = readFile('config_repo/vars.sh') 
   for (String eachSplit : splitData) {
     println "processing ${eachSplit}"
-    if(configVars.containes(eachSplit)){
+    if(configVars.contains(eachSplit)){
         println "found match"
     }
    }
