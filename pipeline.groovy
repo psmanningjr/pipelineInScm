@@ -66,9 +66,7 @@ node {
     indexOfEquals = eachSplit.indexOf("=")
     if (indexOfEquals > -1 ) {
       compare = eachSplit.substring(0,indexOfEquals)
-      println "compare with ${compare}"
       if(TEMPLATE_PARAMS.contains(compare)){
-          println "found match"
           TEMPLATE_ARGS = TEMPLATE_ARGS + '"' + eachSplit + '" '
       }
     }
