@@ -19,10 +19,10 @@ parameters: [
 
 node {
   sh "echo ${stuff}"
-  APP_REPO = stuff.get('appRepo')
-  APP_BRANCH = stuff.get('APP_BRANCH')
-  CONFIG_REPO = stuff.get('configRepo')
-  CONFIG_BRANCH = stuff.get('CONFIG_BRANCH')
+//  APP_REPO = stuff.get('appRepo')
+//  APP_BRANCH = stuff.get('APP_BRANCH')
+CONFIG_REPO = stuff('configRepo')
+//  CONFIG_BRANCH = stuff.get('CONFIG_BRANCH')
   sh "echo ${CONFIG_REPO}"
 
 //CONF_REPO = stuff[configRepo]
@@ -65,60 +65,6 @@ node {
       git branch: stuff.get('APP_BRANCH'), credentialsId: 'mint-dev-jenkinsgitlabsecret', url: stuff.get('appRepo')
         sh 'ls -tal'
      }
-//  <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.6">
-//    <scms>
-//      <hudson.plugins.git.GitSCM plugin="git@3.0.0">
-//        <configVersion>2</configVersion>
-//        <userRemoteConfigs>
-//          <hudson.plugins.git.UserRemoteConfig>
-//            <name>config_repo</name>
-//            <url>${CONFIG_REPO}</url>
-//            <credentialsId>mint-dev-jenkinsgitlabsecret</credentialsId>
-//          </hudson.plugins.git.UserRemoteConfig>
-//        </userRemoteConfigs>
-//        <branches>
-//          <hudson.plugins.git.BranchSpec>
-//            <name>${CONFIG_BRANCH}</name>
-//          </hudson.plugins.git.BranchSpec>
-//        </branches>
-//        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
-//        <submoduleCfg class="list"/>
-//        <extensions>
-//          <hudson.plugins.git.extensions.impl.ScmName>
-//            <name>config_repo</name>
-//          </hudson.plugins.git.extensions.impl.ScmName>
-//          <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
-//            <relativeTargetDir>config_repo</relativeTargetDir>
-//          </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
-//        </extensions>
-//      </hudson.plugins.git.GitSCM>
-//      <hudson.plugins.git.GitSCM plugin="git@3.0.0">
-//        <configVersion>2</configVersion>
-//        <userRemoteConfigs>
-//          <hudson.plugins.git.UserRemoteConfig>
-//            <name>app_repo</name>
-//            <url>${APP_REPO}</url>
-//            <credentialsId>mint-dev-jenkinsgitlabsecret</credentialsId>
-//          </hudson.plugins.git.UserRemoteConfig>
-//        </userRemoteConfigs>
-//        <branches>
-//          <hudson.plugins.git.BranchSpec>
-//            <name>${APP_BRANCH}</name>
-//          </hudson.plugins.git.BranchSpec>
-//        </branches>
-//        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
-//        <submoduleCfg class="list"/>
-//        <extensions>
-//          <hudson.plugins.git.extensions.impl.ScmName>
-//            <name>app_repo</name>
-//          </hudson.plugins.git.extensions.impl.ScmName>
-//          <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
-//            <relativeTargetDir>app_repo</relativeTargetDir>
-//          </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
-//        </extensions>
-//      </hudson.plugins.git.GitSCM>
-//    </scms>
-//  </scm>
 //  <canRoam>true</canRoam>
 //  <disabled>false</disabled>
 //  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
@@ -129,7 +75,7 @@ node {
 //    <hudson.tasks.Shell>
 //      <command>ls app_repo
 //ls config_repo
-//oc process $TEMPLATE_NAME -n syngenta RUNTIME=$RUNTIME HOSTNAME_HTTP=$HOSTNAME_HTTP | oc apply -f - -n $TO_NAMESPACE
+//// sh 'oc process $TEMPLATE_NAME -n syngenta RUNTIME=$RUNTIME HOSTNAME_HTTP=$HOSTNAME_HTTP | oc apply -f - -n $TO_NAMESPACE'
 //oc project $TO_NAMESPACE
 //# Get parameters expected by template
 //TEMPLATE_PARAMS=$(oc process --namespace $TO_NAMESPACE -f app_repo/openshift-config-map-template.yml --parameters | cut -f 1 -d &quot; &quot; | tail -n +2)
