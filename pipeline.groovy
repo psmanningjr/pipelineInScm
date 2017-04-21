@@ -4,7 +4,7 @@
 stuff = input message: 'Select Promotion Parameters', 
 parameters: [
   choice(choices: "mint-dev\nmint-test\nmint-stage\nmint-system-integration\nmint-training\nmint-prod", description: '', name: 'from'),
-  choice(choices: "mint-test\nmint-stage\nmint-system-integration\nmint-training\nmint-prod", description: '', name: 'to'),
+  choice(choices: "mint-test\nmint-stage\nmint-system-integration\nmint-training\nmint-prod", description: '', name: 'to_namespace'),
   choice(choices: "git@10.127.183.7:mint/mint-integration.git\ngit@10.127.183.7:mint/identity.git\ngit@10.127.183.7:mint/material.git\ngit@10.127.183.7:mint/mint-security-admin.git", description: '', name: 'appRepo'),
   choice(choices: "git@10.127.183.7:openshift/test-configs.git\ngit@10.127.183.7:openshift/test-configs.git\ngit@10.127.183.7:openshift/stage-configs.git\ngit@10.127.183.7:openshift/system-integration-configs.git\ngit@10.127.183.7:openshift/training-configs.git\ngit@10.127.183.7:openshift/prod-configs.git", description: '', name: 'configRepo'),
   choice(choices: "mint-integration\nidentity\nmaterial\nmint-system-integration\nmint-security", description: '', name: 'templateName'),
@@ -26,7 +26,7 @@ CONFIG_BRANCH = stuff.get('CONFIG_BRANCH')
   TEMPLATE_NAME = stuff.get('templateName')
   RUNTIME = stuff.get('RUNTIME')
   APP_NAME = stuff.get('app_name')
-  TO_NAMESPACE = stuff.get('to')
+  TO_NAMESPACE = stuff.get('to_namespace')
   FROM_NAMESPACE = stuff.get('from')
   TEMPLATE_NAME = stuff.get('templateName')
   HOSTNAME_HTTP = stuff.get('HOSTNAME_HTTP')
