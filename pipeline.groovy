@@ -101,7 +101,7 @@ def info = readFile('/tmp/paraminfo').trim()
    def TEMPLATE_ARGS =""
   def configVars = readFile('config_repo/vars.sh') 
   String[] splitData = configVars.split("\n");
-  
+  println "config vars = ${configVars}"
   //println "configvars = ${configVars}"
   for (String eachSplit : splitData) {
     println "processing ${eachSplit}"
