@@ -96,8 +96,8 @@ def info = readFile('/tmp/paraminfo').trim()
 // org TEMPLATE_ARGS=$(for item in $TEMPLATE_PARAMS; do printf &quot;$(grep ^$item= config_repo/vars.sh) &quot;; done)
   //List lines = TEMPLATE_PARAMS.split( '\n' ).findAll
   String[] splitData = TEMPLATE_PARAMS.split("\n");
- 
-    def configVars = readFile('config_repo/vars.sh') 
+ sh "cut -f 1 -d "+'"="' + " config_repo/vars.sh >/tmp/configVarNames"
+    def configVars = readFile('/tmp/configVarNames') 
   println "configvars = ${configVars}"
   for (String eachSplit : splitData) {
     println "processing ${eachSplit}"
