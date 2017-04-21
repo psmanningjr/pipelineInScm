@@ -102,6 +102,7 @@ def info = readFile('/tmp/paraminfo').trim()
     println "processing ${eachSplit}"
     if(configVars.find("^"+ eachSplit)){
         println "found match"
+    }
    }
 
 
