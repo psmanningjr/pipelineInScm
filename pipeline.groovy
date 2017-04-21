@@ -10,7 +10,7 @@ parameters: [
   //choice(choices: "mint-integration\nidentity\nmaterial\nmint-system-integration\nmint-security", description: '', name: 'templateName'),
   //string(defaultValue: '', description: '', name: 'HOSTNAME_HTTP'),
   //string(defaultValue: 'QA', description: '', name: 'RUNTIME'),
-  //string(defaultValue: 'QA', description: '', name: 'APP_BRANCH'),
+  string(defaultValue: 'QA', description: '', name: 'APP_BRANCH'),
   //string(defaultValue: 'QA', description: '', name: 'CONFIG_BRANCH'),
   //choice(choices: "integration\nidentity\nmaterial\nsecurity", description: '', name: 'app_name')
 
