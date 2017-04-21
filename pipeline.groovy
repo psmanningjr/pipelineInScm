@@ -29,6 +29,8 @@ CONFIG_BRANCH = stuff.get('CONFIG_BRANCH')
   TO_NAMESPACE = stuff.get('to')
   FROM_NAMESPACE = stuff.get('from')
   TEMPLATE_NAME = stuff.get('templateName')
+  HOSTNAME_HTTP = stuff.get('HOSTNAME_HTTP')
+  
   sh "echo config_repo = ${CONFIG_REPO}"
 
 //CONF_REPO = stuff[configRepo]
