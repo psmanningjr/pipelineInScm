@@ -79,13 +79,12 @@ sh "echo 'oc process $TEMPLATE_NAME -n syngenta RUNTIME=$RUNTIME HOSTNAME_HTTP=$
  // sh "oc process ${TEMPLATE_NAME} -n syngenta RUNTIME=${RUNTIME} HOSTNAME_HTTP=${HOSTNAME_HTTP}"
  // sh "echo oc project ${TO_NAMESPACE}"
 //# Get parameters expected by template
-TEMPLATE_VARS_WITH_DEFS= sh "oc process --namespace ${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml --parameters | cut -f 1 -d ' ' | tail -n +2"
-  TEMPLATE_VARS = sh ''
-  sh 'echo ${TEMPLATE_VARS}'
+TEMPLATE_PARAMS= sh "oc process --namespace ${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml --parameters | cut -f 1 -d ' ' | tail -n +2"
 //  TEMPLATE_PARAMS= (oc process --namespace ${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml --parameters | cut -f 1 -d &quot; &quot; | tail -n +2).execute.text
   sh " echo ${TEMPLATE_PARAMS}"
   //# Filter out unneeded config arguments
 // org TEMPLATE_ARGS=$(for item in $TEMPLATE_PARAMS; do printf &quot;$(grep ^$item= config_repo/vars.sh) &quot;; done)
+  TEMPLATE_ARGS= sh "for item in $TEMPLATE_PARAMS; do printf '$(grep ^$item= config_repo/vars.sh) '; done"
 //  TEMPLATE_ARGS= sh 'for item in $TEMPLATE_PARAMS; do printf &quot; returnitem(item) &quot;; done'
 //  echo "oc process --namespace=${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml ${TEMPLATE_ARGS} | oc apply -f - --namespace=$TO_NAMESPACE"
 //echo "oc tag $FROM_NAMESPACE/$APP_NAME:$FROM_TAG $TO_NAMESPACE/$APP_NAME:latest"
