@@ -107,14 +107,14 @@ def info = readFile('/tmp/paraminfo').trim()
     println "processing ${eachSplit}"
     if(TEMPLATE_PARAMS.contains(eachSplit.substring(0,eachSplit.indexof("=")))){
         println "found match"
-      TEMPLATE_ARGS = TEMPLATE_ARGS+ '"' + eachSplit + '"'
+      TEMPLATE_ARGS = TEMPLATE_ARGS + '"' + eachSplit + '" '
     }
    }
 
 
 //  sh "for item in ${TEMPLATE_PARAMS}; do printf " + '"' + " returnitem(item) " +'"' + "; done > /tmp/template.args"
-  def TEMPLATE_ARGS = readFile('/tmp/template.args')
-println "args = $TEMPLATE_ARGS"
+//  def TEMPLATE_ARGS = readFile('/tmp/template.args')
+//println "args = $TEMPLATE_ARGS"
 // sh "oc process --namespace=${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml ${TEMPLATE_ARGS} | oc apply -f - --namespace=$TO_NAMESPACE"
 //echo "oc tag $FROM_NAMESPACE/$APP_NAME:$FROM_TAG $TO_NAMESPACE/$APP_NAME:latest"
 }
