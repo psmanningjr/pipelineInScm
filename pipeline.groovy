@@ -46,11 +46,15 @@ parameters: [
    
   // sh "ls -tal"
    //sh "ls -tal /tmp"
-    dir( 'config_repo' ) { sh 'pwd'
+    dir( 'config_repo' ) { 
+        git branch: '${CONFIG_BRANCH}', credentialsId: 'mint-dev-jenkinsgitlabsecret', url:'${CONFIG_REPO}'
+        sh 'ls -tal'
     }
     
-    dir path: 'app_repo' { sh 'pwd'
-                 }
+    dir ( 'app_repo' ) { 
+      git branch: '${APP_BRANCH}', credentialsId: 'mint-dev-jenkinsgitlabsecret', url:'${APP_REPO}'
+        sh 'ls -tal'
+     }
 //  <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.6">
 //    <scms>
 //      <hudson.plugins.git.GitSCM plugin="git@3.0.0">
