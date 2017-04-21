@@ -88,5 +88,5 @@ echo "oc tag $FROM_NAMESPACE/$APP_NAME:$FROM_TAG $TO_NAMESPACE/$APP_NAME:latest"
 }
 
 returnitem (item) {
-  sh grep ^${item}= config_repo/vars.sh
+  sh 'grep ^${item}= config_repo/vars.sh'
 }
