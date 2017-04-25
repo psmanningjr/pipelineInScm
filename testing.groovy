@@ -54,7 +54,7 @@ node {
   println "    Merging list of name to create a list of sets "
   
   sh "cat ./listOfSingleNames"
-  sh "cut -f 1 -d "+'" "' + " ./listOfSingleNames >/tmp/onlynames"
+  sh "cut -f 1 -d "+'" "' + " ./listOfNamesFromTemplate >/tmp/onlynames"
   sh "cat /tmp/onlynames"
   sh "tail -n +2 /tmp/onlynames >/tmp/tailed"
 
