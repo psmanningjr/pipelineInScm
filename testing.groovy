@@ -52,8 +52,10 @@ node {
 
   println "______________________________________________________________________________________________________"
   println "    Merging list of name to create a list of sets "
-
+  
+  sh "cat ./ListOfSingleNames"
   sh "cut -f 1 -d "+'" "' + " ./listOfSingleNames >/tmp/onlynames"
+  sh "cat /tmp/onlynames"
   sh "tail -n +2 /tmp/onlynames >/tmp/tailed"
 
   def TEMPLATE_PARAMS = readFile('/tmp/tailed').trim()
