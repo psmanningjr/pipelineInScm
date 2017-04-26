@@ -32,6 +32,7 @@ def someFunc2(String text2){
     text2
 }
 node {
+  stage('testing') {
   //sh "echo ${stuff}"
   FROM_TAG = stuff.get('fromTag')
   APP_REPO = stuff.get('appRepo')
@@ -90,7 +91,8 @@ node {
       }
     }
   }
-  println "args = $TEMPLATE_ARGS"  
+  println "args = $TEMPLATE_ARGS" 
+  }
 }
 
 //def getRepo(String fromURL, String onBranch, String toDir, String withCredentialId) {
