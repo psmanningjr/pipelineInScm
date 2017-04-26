@@ -1,5 +1,17 @@
 #!/usr/bin/env groovy
 
+void getRepo(String fromURL, String onBranch, String toDir, String withCredentialId) {
+  dir ( toDir ) { 
+      git branch:onBranch, credentialsId: withCredentialId, url: fromUrl
+  }
+}
+
+void getPipelineRepo(String toDir) {
+  dir ( toDir) {
+    checkout scm
+  }
+}
+
 stuff = input message: 'Select Promotion Parameters', 
 parameters: [
   choice(choices: "mint-dev\nmint-test\nmint-stage\nmint-system-integration\nmint-training\nmint-prod", description: '', name: 'from'),
@@ -79,14 +91,3 @@ node {
   
   }
 
-void getRepo(String fromURL, String onBranch, String toDir, String withCredentialId) {
-  dir ( toDir ) { 
-      git branch:onBranch, credentialsId: withCredentialId, url: fromUrl
-  }
-}
-
-void getPipelineRepo(String toDir) {
-  dir ( toDir) {
-    checkout scm
-  }
-}
