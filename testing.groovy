@@ -99,7 +99,6 @@ node {
 //}
 
 
-}
 def getPipelineRepo(String toDir) {
   
     echo toDir
