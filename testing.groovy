@@ -53,23 +53,12 @@ node {
  
   sh "cat ./listOfNamesFromTemplate "
   def TEMPLATE_PARAMS = fieldNamesFromTemplateParamsList('./listOfNamesFromTemplate')
-  
-  //def templateNames = readFile('./listOfNamesFromTemplate').trim()
-  //def TEMPLATE_PARAMS = takeFirstFieldOnEachItem(dropFirstItem('./listOfNamesFromTemplate'))
-//  sh "cut -f 1 -d "+'" "' + " ./listOfNamesFromTemplate >/tmp/onlynames"
-//  sh "cat /tmp/onlynames"
-//  sh "tail -n +2 /tmp/onlynames >/tmp/tailed"
-
-//  def TEMPLATE_PARAMS = readFile('/tmp/tailed').trim()
   println "Template parameters = ${TEMPLATE_PARAMS}"
 
   //# Filter out unneeded config arguments
+  def splitData = fileLinesToList('./fileWithEqualsAndBlanks') 
   def TEMPLATE_ARGS =""
-  def configVars = readFile('./fileWithEqualsAndBlanks')
-  String[] splitData = configVars.split("\n");
-  count = splitData.size()
-  println "config vars = ${configVars}"
-  for (String eachSplit : splitData) {
+    for (String eachSplit : splitData) {
     //println "processing ${eachSplit}"
     indexOfEquals = eachSplit.indexOf("=")
     if (indexOfEquals > -1 ) {
@@ -89,7 +78,12 @@ def fieldNamesFromTemplateParamsList(inputFile) {
   sh "rm -f /tmp/onlynames"
   return fieldnamesOnly
 }
- 
+
+def fileLinesToList(inputFile) {
+  def configVars = readFile(inputfile)
+  String[] list = configVars.split("\n");
+  return list
+}
 def getRepo(String fromURL, String onBranch, String toDir, String withCredentialId) {
   dir ( toDir ) { 
       git branch:onBranch, credentialsId: withCredentialId, url: fromUrl
