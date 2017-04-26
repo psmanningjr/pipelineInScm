@@ -59,7 +59,6 @@ node {
 
   //# Filter out unneeded config arguments
   def setCommands = fileLinesToList('./fileWithEqualsAndBlanks') 
-    println "setcommands = ${setCommands}"
   def TEMPLATE_ARGS = buildAssignmentList(TEMPLATE_PARAMS, setCommands)
     //def TEMPLATE_ARGS =""
  //   for (String eachSplit : splitData) {
@@ -86,7 +85,7 @@ def fieldNamesFromTemplateParamsList(inputFile) {
 def buildAssignmentList(TEMPLATE_PARAMS, setCommands) {
   def assignmentList =""
     for (String setCMD : setCommands) {
-      println "processing ${setCMD}"
+      //println "processing ${setCMD}"
       indexOfEquals = setCMD.indexOf("=")
       if (indexOfEquals > -1 ) {
         compare = setCMD.substring(0,indexOfEquals)
@@ -101,7 +100,6 @@ def buildAssignmentList(TEMPLATE_PARAMS, setCommands) {
 def fileLinesToList(inputFile) {
   def configVars = readFile(inputFile)
   String[] list = configVars.split("\n");
-  println "list = ${list}"
   return list
 }
 
