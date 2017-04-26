@@ -46,7 +46,7 @@ node {
   //    sh 'ls -tal'
   //}
   
-  getPipelineRepo('/')
+  getPipelineRepo( toDir: '/')
 
   println "______________________________________________________________________________________________________"
   println "    Merging list of name to create a list of sets "
@@ -81,7 +81,7 @@ node {
 
 getRepo(String fromURL, String onBranch, String toDir, String withCredentialId) {
   dir ( toDir ) { 
-      git branch:onBranch, credentialsId: withCredentialId', url: fromUrl
+      git branch:onBranch, credentialsId: withCredentialId, url: fromUrl
   }
 }
 
