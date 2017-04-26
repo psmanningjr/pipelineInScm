@@ -37,18 +37,10 @@ node {
     
     getRepo(CONFIG_REPO, CONFIG_BRANCH, 'config_repo', 'mint-dev-jenkinsgitlabsecret') 
 
-    //dir( 'config_repo' ) { 
-    //  git branch: CONFIG_BRANCH, credentialsId: 'mint-dev-jenkinsgitlabsecret', url: CONFIG_REPO
-   //   sh 'ls -tal'
-   // }
-    
     getRepo(APP_REPO, APP_BRANCH, 'app_repo', 'mint-dev-jenkinsgitlabsecret')
+
     println "______________________________________________________________________________________________________"
     println "    Get ${APP_REPO} Application Repo" 
-    //dir ( 'app_repo' ) { 
-    //    git branch: APP_BRANCH, credentialsId: 'mint-dev-jenkinsgitlabsecret', url: APP_REPO
-    //  sh 'ls -tal'
-    //}
   }
   
   println "______________________________________________________________________________________________________"
@@ -64,10 +56,11 @@ node {
 
   //# Get parameters expected by template
   sh script: "oc process --namespace ${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml --parameters >/tmp/paraminfo "
-  sh "cut -f 1 -d "+'" "' + " /tmp/paraminfo >/tmp/onlynames"
-  sh "tail -n +2 /tmp/onlynames >/tmp/tailed"
+  def TEMPLATE_PARAMS = fieldNamesFromTemplateParamsList('/tmp/paraminfo')
+  //sh "cut -f 1 -d "+'" "' + " /tmp/paraminfo >/tmp/onlynames"
+  //sh "tail -n +2 /tmp/onlynames >/tmp/tailed"
 
-  def TEMPLATE_PARAMS = readFile('/tmp/tailed').trim()
+  //def TEMPLATE_PARAMS = readFile('/tmp/tailed').trim()
   //println "Template parameters = ${TEMPLATE_PARAMS}"
 
   //# Filter out unneeded config arguments
