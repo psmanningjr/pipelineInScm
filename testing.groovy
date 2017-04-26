@@ -20,7 +20,6 @@ node {
   stage('test') {
    def whatThe = someFunc('textToFunc')
    def whatThe2 = someFunc2('textToFunc2')
-   def some = shortName(toDir:'stupidLanguage')
   }
 }
 
@@ -62,8 +61,7 @@ node {
   //    sh 'ls -tal'
   //}
   
-  def result = shortName( toDir: '/')
-//  def result = getPipelineRepo( toDir: '/')
+  def result = getPipelineRepo('./')
 
   println "______________________________________________________________________________________________________"
   println "    Merging list of name to create a list of sets "
@@ -102,11 +100,8 @@ node {
 //  }
 //}
 
-//def getPipelineRepo(String toDir){
-def shortName(String toDir){
-    echo toDir
-    toDir
-//dir ( toDir) {
-//    checkout scm
-//  }
+def getPipelineRepo(String toDir){
+  dir ( toDir) {
+    checkout scm
+  }
 }
