@@ -86,7 +86,7 @@ def dropFirstItem(inputFile) {
   return readFile('/tmp/firstDropped').trim()
 }
  
-@NonCP
+@NonCPS
 def takeFirstFieldOnEachItem(list) {
   return list.collect{ it.split[0] }
 }
