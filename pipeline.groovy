@@ -77,7 +77,7 @@ node {
   //        TEMPLATE_ARGS = TEMPLATE_ARGS + '"' + eachSplit + '" '
   //    }
   //  }
-  }
+  //}
   //println "args = $TEMPLATE_ARGS"
   
   sh "oc process --namespace=${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml ${TEMPLATE_ARGS} >/tmp/configmap"
