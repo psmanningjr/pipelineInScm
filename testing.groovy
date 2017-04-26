@@ -98,8 +98,13 @@ node {
 //  }
 //}
 
+
+}
 def getPipelineRepo(String toDir) {
-  dir ( toDir) {
-    checkout scm
-  }
+  
+    echo toDir
+    toDir
+//dir ( toDir) {
+//    checkout scm
+//  }
 }
