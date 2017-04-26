@@ -82,7 +82,7 @@ def fieldNamesFromTemplateParamsList(inputFile) {
   return fieldnamesOnly
 }
 
-def buildAssignmentList(splitData)
+def buildAssignmentList(splitData) {
   def assignmentList =""
     for (String eachSplit : splitData) {
     //println "processing ${eachSplit}"
@@ -94,6 +94,7 @@ def buildAssignmentList(splitData)
       }
     }
   return assignmentList
+  }
 }
   
 def fileLinesToList(inputFile) {
