@@ -60,7 +60,8 @@ node {
   //    sh 'ls -tal'
   //}
   
-  def result = getPipelineRepo( toDir: '/')
+  def result = shortName( toDir: '/')
+//  def result = getPipelineRepo( toDir: '/')
 
   println "______________________________________________________________________________________________________"
   println "    Merging list of name to create a list of sets "
@@ -98,7 +99,8 @@ node {
 //  }
 //}
 
-def getPipelineRepo(String toDir){
+//def getPipelineRepo(String toDir){
+def shortName(String toDir){
     echo toDir
     toDir
 //dir ( toDir) {
