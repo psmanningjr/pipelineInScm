@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-stuff = input message: 'Select Promotion Parameters', 
+inputParams = input message: 'Select Promotion Parameters', 
 parameters: [
   choice(choices: "mint-dev\nmint-test\nmint-stage\nmint-system-integration\nmint-training\nmint-prod", description: '', name: 'from'),
   string(defaultValue: 'latest', description: '', name: 'fromTag'),
@@ -8,29 +8,29 @@ parameters: [
   choice(choices: "git@10.127.183.7:mint/mint-integration.git\ngit@10.127.183.7:mint/identity.git\ngit@10.127.183.7:mint/material.git\ngit@10.127.183.7:mint/mint-security-admin.git", description: '', name: 'appRepo'),
   choice(choices: "git@10.127.183.7:openshift/test-configs.git\ngit@10.127.183.7:openshift/test-configs.git\ngit@10.127.183.7:openshift/stage-configs.git\ngit@10.127.183.7:openshift/system-integration-configs.git\ngit@10.127.183.7:openshift/training-configs.git\ngit@10.127.183.7:openshift/prod-configs.git", description: '', name: 'configRepo'),
   choice(choices: "mint-integration\nidentity\nmaterial\nmint-system-integration\nmint-security", description: '', name: 'templateName'),
-  string(defaultValue: 'integration-tst.fed5.syngenta-usae.openshiftapps.com', description: '', name: 'HOSTNAME_HTTP'),
-  string(defaultValue: 'QA', description: '', name: 'RUNTIME'),
-  string(defaultValue: 'openshift', description: '', name: 'APP_BRANCH'),
-  string(defaultValue: 'master', description: '', name: 'CONFIG_BRANCH'),
+  string(defaultValue: 'integration-tst.fed5.syngenta-usae.openshiftapps.com', description: '', name: 'hostnameHTTP'),
+  string(defaultValue: 'QA', description: '', name: 'runtime'),
+  string(defaultValue: 'openshift', description: '', name: 'appBranch'),
+  string(defaultValue: 'master', description: '', name: 'configBranch'),
   choice(choices: "integration\nidentity\nmaterial\nsecurity", description: '', name: 'app_name')
 
   ]
 
-
 node {
-  //sh "echo ${stuff}"
-  FROM_TAG = stuff.get('fromTag')
-  APP_REPO = stuff.get('appRepo')
-  APP_BRANCH = stuff.get('APP_BRANCH')
-  CONFIG_REPO = stuff.get('configRepo')
-  CONFIG_BRANCH = stuff.get('CONFIG_BRANCH')
-  TEMPLATE_NAME = stuff.get('templateName')
-  RUNTIME = stuff.get('RUNTIME')
-  APP_NAME = stuff.get('app_name')
-  TO_NAMESPACE = stuff.get('to_namespace')
-  FROM_NAMESPACE = stuff.get('from')
-  TEMPLATE_NAME = stuff.get('templateName')
-  HOSTNAME_HTTP = stuff.get('HOSTNAME_HTTP')
+  stage('Git clone') {
+  //sh "echo ${inputParams}"
+  FROM_TAG = inputParams.get('fromTag')
+  APP_REPO = inputParams.get('appRepo')
+  APP_BRANCH = inputParams.get('appBranch')
+  CONFIG_REPO = inputParams.get('configRepo')
+  CONFIG_BRANCH = inputParams.get('configBranch')
+  TEMPLATE_NAME = inputParams.get('templateName')
+  RUNTIME = inputParams.get('runtime')
+  APP_NAME = inputParams.get('app_name')
+  TO_NAMESPACE = inputParams.get('to_namespace')
+  FROM_NAMESPACE = inputParams.get('from')
+  TEMPLATE_NAME = inputParams.get('templateName')
+  HOSTNAME_HTTP = inputParams.get('hostnameHTTP')
   
   println "______________________________________________________________________________________________________"
   println "    Get ${CONFIG_REPO} Configuration Repo" 
