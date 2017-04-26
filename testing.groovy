@@ -59,7 +59,7 @@ node {
 
   //# Filter out unneeded config arguments
   def splitData = fileLinesToList('./fileWithEqualsAndBlanks') 
-  def TEMPLATE_ARGS = buildAssignmentList(splitData)
+  def TEMPLATE_ARGS = buildAssignmentList(TEMPLATE_PARAMS, splitData)
     //def TEMPLATE_ARGS =""
  //   for (String eachSplit : splitData) {
     //println "processing ${eachSplit}"
@@ -82,7 +82,7 @@ def fieldNamesFromTemplateParamsList(inputFile) {
   return fieldnamesOnly
 }
 
-def buildAssignmentList(splitData) {
+def buildAssignmentList(TEMPLATE_PARAMS, splitData) {
   def assignmentList =""
     for (String eachSplit : splitData) {
     //println "processing ${eachSplit}"
