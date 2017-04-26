@@ -52,8 +52,7 @@ node {
   println "    Merging list of name to create a list of sets "
  
   sh "cat ./listOfNamesFromTemplate "
-  sh "tail -n +2 ./listOfNamesFromTemplate | cut -f 1 -d "+'" "' + " >/tmp/onlynames "
-  def TEMPLATE_PARAMS = readFile('/tmp/onlynames').trim()
+  def TEMPLATE_PARAMS = fieldNamesFromTemplateParamsList('./listOfNamesFromTemplate')
   
   //def templateNames = readFile('./listOfNamesFromTemplate').trim()
   //def TEMPLATE_PARAMS = takeFirstFieldOnEachItem(dropFirstItem('./listOfNamesFromTemplate'))
@@ -84,16 +83,13 @@ node {
   }
 }
 
-def dropFirstItem(inputFile) {
-  sh "tail -n +2 ${inputFile} >/tmp/firstDropped"
-  return readFile('/tmp/firstDropped').trim()
+def fieldNamesFromTemplateParamsList(inputFile) {
+  sh "tail -n +2 ${inputFile} | cut -f 1 -d "+'" "' + " >/tmp/onlynames "
+  def fieldnamesOnly = readFile('/tmp/onlynames').trim()
+  sh "rm -f /tmp/onlynames"
+  return fieldnamesOnly
 }
  
-@NonCPS
-def takeFirstFieldOnEachItem(list) {
-  return list.collect{ it.split[0] }
-}
-                                                                              
 def getRepo(String fromURL, String onBranch, String toDir, String withCredentialId) {
   dir ( toDir ) { 
       git branch:onBranch, credentialsId: withCredentialId, url: fromUrl
