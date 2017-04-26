@@ -72,7 +72,7 @@ node {
  //   }
  // }
   println "args = $TEMPLATE_ARGS" 
-//  }
+ }
 }
 
 def fieldNamesFromTemplateParamsList(inputFile) {
