@@ -80,10 +80,11 @@ def fieldNamesFromTemplateParamsList(inputFile) {
 }
 
 def fileLinesToList(inputFile) {
-  def configVars = readFile(inputfile)
+  def configVars = readFile(inputFile)
   String[] list = configVars.split("\n");
   return list
 }
+
 def getRepo(String fromURL, String onBranch, String toDir, String withCredentialId) {
   dir ( toDir ) { 
       git branch:onBranch, credentialsId: withCredentialId, url: fromUrl
