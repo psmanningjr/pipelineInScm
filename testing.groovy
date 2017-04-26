@@ -90,7 +90,7 @@ def buildAssignmentList(TEMPLATE_PARAMS, splitData) {
     if (indexOfEquals > -1 ) {
       compare = eachSplit.substring(0,indexOfEquals)
       if(TEMPLATE_PARAMS.contains(compare)){
-          assignmentList = assignmentlist + '"' + eachSplit + '" '
+          assignmentList = assignmentList + '"' + eachSplit + '" '
       }
     }
   return assignmentList
