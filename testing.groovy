@@ -52,7 +52,7 @@ node {
   println "    Merging list of name to create a list of sets "
   
   sh "cat ./listOfNamesFromTemplate "
-  def templateNames = readFile('.listOfNamesFromTemplate').trim()
+  def templateNames = readFile('./listOfNamesFromTemplate').trim()
   def TEMPLATE_PARAMS = takeFirstFieldOnEachItem(dropFirstItem(templateNames))
 //  sh "cut -f 1 -d "+'" "' + " ./listOfNamesFromTemplate >/tmp/onlynames"
 //  sh "cat /tmp/onlynames"
