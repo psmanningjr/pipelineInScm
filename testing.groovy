@@ -52,11 +52,13 @@ node {
   println "    Merging list of name to create a list of sets "
   
   sh "cat ./listOfNamesFromTemplate "
-  sh "cut -f 1 -d "+'" "' + " ./listOfNamesFromTemplate >/tmp/onlynames"
-  sh "cat /tmp/onlynames"
-  sh "tail -n +2 /tmp/onlynames >/tmp/tailed"
+  def templateNames = readFile('.listOfNamesFromTemplate').trim()
+  def TEMPLATE_PARAMS = takeFirstFieldOnEachItem(dropFirstItem(templateNames))
+//  sh "cut -f 1 -d "+'" "' + " ./listOfNamesFromTemplate >/tmp/onlynames"
+//  sh "cat /tmp/onlynames"
+//  sh "tail -n +2 /tmp/onlynames >/tmp/tailed"
 
-  def TEMPLATE_PARAMS = readFile('/tmp/tailed').trim()
+//  def TEMPLATE_PARAMS = readFile('/tmp/tailed').trim()
   println "Template parameters = ${TEMPLATE_PARAMS}"
 
   //# Filter out unneeded config arguments
@@ -79,11 +81,19 @@ node {
   }
 }
 
-//def getRepo(String fromURL, String onBranch, String toDir, String withCredentialId) {
-//  dir ( toDir ) { 
-//      git branch:onBranch, credentialsId: withCredentialId, url: fromUrl
-//  }
-//}
+def dropFirstItem(list) {
+     return list.takeRight(list.length()-1)
+}
+ 
+def takeFirstFieldOnEachItem(list) {
+  return list.collect(it.split[0])
+}
+                                                                              
+def getRepo(String fromURL, String onBranch, String toDir, String withCredentialId) {
+  dir ( toDir ) { 
+      git branch:onBranch, credentialsId: withCredentialId, url: fromUrl
+  }
+}
 
 def getPipelineRepo(String toDir){
   dir ( toDir) {
