@@ -75,20 +75,17 @@ node {
       }
     }
   }
-  println "args = $TEMPLATE_ARGS"
-  
-  def getRepo(String fromURL, String onBranch, String toDir, String withCredentialId) {
-  dir ( toDir ) { 
-      git branch:onBranch, credentialsId: withCredentialId, url: fromUrl
-  }
+  println "args = $TEMPLATE_ARGS"  
 }
+
+//def getRepo(String fromURL, String onBranch, String toDir, String withCredentialId) {
+//  dir ( toDir ) { 
+//      git branch:onBranch, credentialsId: withCredentialId, url: fromUrl
+//  }
+//}
 
 def getPipelineRepo(String toDir) {
   dir ( toDir) {
     checkout scm
   }
 }
-
-
-  }
-
