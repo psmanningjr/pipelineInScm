@@ -34,12 +34,11 @@ node {
   
   println "______________________________________________________________________________________________________"
   println "    Get ${CONFIG_REPO} Configuration Repo" 
-  getRepo(fromURL: CONFIG_REPO, onBranch: CONFIG_BRANCH, toDir: 'config_repo', withCredentialId: 'mint-dev-jenkinsgitlabsecret')
   
-  //dir( 'config_repo' ) { 
-  //    git branch: CONFIG_BRANCH, credentialsId: 'mint-dev-jenkinsgitlabsecret', url: CONFIG_REPO
-  //    sh 'ls -tal'
-  //}
+  dir( 'config_repo' ) { 
+      git branch: CONFIG_BRANCH, credentialsId: 'mint-dev-jenkinsgitlabsecret', url: CONFIG_REPO
+      sh 'ls -tal'
+  }
     
   println "______________________________________________________________________________________________________"
   println "    Get ${APP_REPO} Application Repo" 
@@ -91,9 +90,4 @@ node {
   println "______________________________________________________________________________________________________"
   println "    Promote ${FROM_NAMESPACE} to ${TO_NAMESPACE} for ${APP_NAME}" 
   sh "oc tag ${FROM_NAMESPACE}/${APP_NAME}:${FROM_TAG} ${TO_NAMESPACE}/${APP_NAME}:latest"
-}
-def getRepo(String fromURL, String onBranch, String toDir, String withCredentialId) {
-  dir ( toDir ) { 
-      git branch:onBranch, credentialsId: withCredentialId, url: fromUrl
-  }
 }
