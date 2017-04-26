@@ -98,9 +98,7 @@ node {
 //  }
 //}
 
-
-def getPipelineRepo(String toDir) {
-  
+def getPipelineRepo(String toDir){
     echo toDir
     toDir
 //dir ( toDir) {
