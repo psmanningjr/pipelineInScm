@@ -61,23 +61,8 @@ node {
 
   //# Filter out unneeded config arguments
   def setCommands = fileLinesToList('config_repo/vars.sh') 
-    println "setCommands = ${setCommands}"
+  println "setCommands = ${setCommands}"
   def TEMPLATE_ARGS = buildAssignmentList(TEMPLATE_PARAMS, setCommands)
-  //def TEMPLATE_ARGS =""
-  //def configVars = readFile('config_repo/vars.sh')
-  //String[] splitData = configVars.split("\n");
-  //count = splitData.size()
-  ////println "config vars = ${configVars}"
-  //for (String eachSplit : splitData) {
-    //println "processing ${eachSplit}"
-  //  indexOfEquals = eachSplit.indexOf("=")
-  //  if (indexOfEquals > -1 ) {
-  //    compare = eachSplit.substring(0,indexOfEquals)
-  //    if(TEMPLATE_PARAMS.contains(compare)){
-  //        TEMPLATE_ARGS = TEMPLATE_ARGS + '"' + eachSplit + '" '
-  //    }
-  //  }
-  //}
   //println "args = $TEMPLATE_ARGS"
   
   sh "oc process --namespace=${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml ${TEMPLATE_ARGS} >/tmp/configmap"
