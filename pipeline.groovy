@@ -35,17 +35,20 @@ node {
     println "______________________________________________________________________________________________________"
     println "    Get ${CONFIG_REPO} Configuration Repo" 
     
-    dir( 'config_repo' ) { 
-      git branch: CONFIG_BRANCH, credentialsId: 'mint-dev-jenkinsgitlabsecret', url: CONFIG_REPO
-      sh 'ls -tal'
-    }
+    getRepo(CONFIG_REPO, CONFIG_BRANCH, 'config_repo', 'mint-dev-jenkinsgitlabsecret') 
+
+    //dir( 'config_repo' ) { 
+    //  git branch: CONFIG_BRANCH, credentialsId: 'mint-dev-jenkinsgitlabsecret', url: CONFIG_REPO
+   //   sh 'ls -tal'
+   // }
     
+    getRepo(APP_REPO, APP_BRANCH, 'app_repo', 'mint-dev-jenkinsgitlabsecret')
     println "______________________________________________________________________________________________________"
     println "    Get ${APP_REPO} Application Repo" 
-    dir ( 'app_repo' ) { 
-        git branch: APP_BRANCH, credentialsId: 'mint-dev-jenkinsgitlabsecret', url: APP_REPO
-      sh 'ls -tal'
-    }
+    //dir ( 'app_repo' ) { 
+    //    git branch: APP_BRANCH, credentialsId: 'mint-dev-jenkinsgitlabsecret', url: APP_REPO
+    //  sh 'ls -tal'
+    //}
   }
   
   println "______________________________________________________________________________________________________"
@@ -91,4 +94,45 @@ node {
   println "______________________________________________________________________________________________________"
   println "    Promote ${FROM_NAMESPACE} to ${TO_NAMESPACE} for ${APP_NAME}" 
   sh "oc tag ${FROM_NAMESPACE}/${APP_NAME}:${FROM_TAG} ${TO_NAMESPACE}/${APP_NAME}:latest"
+}
+
+
+def fieldNamesFromTemplateParamsList(inputFile) {
+  sh "tail -n +2 ${inputFile} | cut -f 1 -d "+'" "' + " >/tmp/onlynames "
+  def fieldnamesOnly = readFile('/tmp/onlynames').trim()
+  sh "rm -f /tmp/onlynames"
+  return fieldnamesOnly
+}
+
+def buildAssignmentList(TEMPLATE_PARAMS, setCommands) {
+  def assignmentList =""
+    for (String setCMD : setCommands) {
+      //println "processing ${setCMD}"
+      indexOfEquals = setCMD.indexOf("=")
+      if (indexOfEquals > -1 ) {
+        compare = setCMD.substring(0,indexOfEquals)
+        if(TEMPLATE_PARAMS.contains(compare)){
+          assignmentList = assignmentList + '"' + setCMD + '" '
+        }
+      }
+    }
+  return assignmentList
+}
+  
+def fileLinesToList(inputFile) {
+  def configVars = readFile(inputFile)
+  String[] list = configVars.split("\n");
+  return list
+}
+
+def getRepo(String fromURL, String onBranch, String toDir, String withCredentialId) {
+  dir ( toDir ) { 
+      git branch:onBranch, credentialsId: withCredentialId, url: fromUrl
+  }
+}
+
+def getPipelineRepo(String toDir){
+  dir ( toDir) {
+    checkout scm
+  }
 }
