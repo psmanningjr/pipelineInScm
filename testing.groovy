@@ -46,7 +46,7 @@ node {
   //    sh 'ls -tal'
   //}
   
-  getPipelineRepo( toDir: '/')
+  def result = getPipelineRepo( toDir: '/')
 
   println "______________________________________________________________________________________________________"
   println "    Merging list of name to create a list of sets "
