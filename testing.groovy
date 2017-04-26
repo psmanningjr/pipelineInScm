@@ -20,7 +20,7 @@ node {
   stage('test') {
    def whatThe = someFunc('textToFunc')
    def whatThe2 = someFunc2('textToFunc2')
-   def some = shortName('stupidLanguage')
+   def some = shortName(toDir:'stupidLanguage')
   }
 }
 
