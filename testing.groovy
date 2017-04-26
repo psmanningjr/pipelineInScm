@@ -100,6 +100,7 @@ def buildAssignmentList(TEMPLATE_PARAMS, setCommands) {
 def fileLinesToList(inputFile) {
   def configVars = readFile(inputFile)
   String[] list = configVars.split("\n");
+  println "list = ${list}"
   return list
 }
 
