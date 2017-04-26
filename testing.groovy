@@ -17,7 +17,7 @@ parameters: [
   ]
 
 node {
-  stage('testing') {
+  stage('Git clone') {
   //sh "echo ${stuff}"
   FROM_TAG = stuff.get('fromTag')
   APP_REPO = stuff.get('appRepo')
@@ -50,24 +50,27 @@ node {
 
   println "______________________________________________________________________________________________________"
   println "    Merging list of name to create a list of sets "
- 
-  sh "cat ./listOfNamesFromTemplate "
+  }
+  
+  stage('Process parameters') {
+    sh "cat ./listOfNamesFromTemplate "
   def TEMPLATE_PARAMS = fieldNamesFromTemplateParamsList('./listOfNamesFromTemplate')
   println "Template parameters = ${TEMPLATE_PARAMS}"
 
   //# Filter out unneeded config arguments
   def splitData = fileLinesToList('./fileWithEqualsAndBlanks') 
-  def TEMPLATE_ARGS =""
-    for (String eachSplit : splitData) {
+  def TEMPLATE_ARGS = buildAssignmentList(splitData)
+    //def TEMPLATE_ARGS =""
+ //   for (String eachSplit : splitData) {
     //println "processing ${eachSplit}"
-    indexOfEquals = eachSplit.indexOf("=")
-    if (indexOfEquals > -1 ) {
-      compare = eachSplit.substring(0,indexOfEquals)
-      if(TEMPLATE_PARAMS.contains(compare)){
-          TEMPLATE_ARGS = TEMPLATE_ARGS + '"' + eachSplit + '" '
-      }
-    }
-  }
+ //   indexOfEquals = eachSplit.indexOf("=")
+ //   if (indexOfEquals > -1 ) {
+ //     compare = eachSplit.substring(0,indexOfEquals)
+  //    if(TEMPLATE_PARAMS.contains(compare)){
+ //         TEMPLATE_ARGS = TEMPLATE_ARGS + '"' + eachSplit + '" '
+ //     }
+ //   }
+ // }
   println "args = $TEMPLATE_ARGS" 
   }
 }
@@ -79,6 +82,21 @@ def fieldNamesFromTemplateParamsList(inputFile) {
   return fieldnamesOnly
 }
 
+def buildAssignmentList(splitData)
+  def assignmentList =""
+    for (String eachSplit : splitData) {
+    //println "processing ${eachSplit}"
+    indexOfEquals = eachSplit.indexOf("=")
+    if (indexOfEquals > -1 ) {
+      compare = eachSplit.substring(0,indexOfEquals)
+      if(TEMPLATE_PARAMS.contains(compare)){
+          assignmentList = assignmentlist + '"' + eachSplit + '" '
+      }
+    }
+  }
+  return assignmentList
+}
+  
 def fileLinesToList(inputFile) {
   def configVars = readFile(inputFile)
   String[] list = configVars.split("\n");
