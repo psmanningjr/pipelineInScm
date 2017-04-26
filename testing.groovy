@@ -1,4 +1,4 @@
-#!/usr/bin/env groovy
+
 
 stuff = input message: 'Select Promotion Parameters', 
 parameters: [
