@@ -79,13 +79,13 @@ node {
   
   }
 
-getRepo(String fromURL, String onBranch, String toDir, String withCredentialId) {
+void getRepo(String fromURL, String onBranch, String toDir, String withCredentialId) {
   dir ( toDir ) { 
       git branch:onBranch, credentialsId: withCredentialId, url: fromUrl
   }
 }
 
-getPipelineRepo(String toDir) {
+void getPipelineRepo(String toDir) {
   dir ( toDir) {
     checkout scm
   }
