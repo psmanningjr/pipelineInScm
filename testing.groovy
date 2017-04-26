@@ -87,7 +87,7 @@ def dropFirstItem(inputFile) {
 }
  
 def takeFirstFieldOnEachItem(list) {
-  return list.collect(it.split[0])
+  return list.collect{ it.split[0] }
 }
                                                                               
 def getRepo(String fromURL, String onBranch, String toDir, String withCredentialId) {
