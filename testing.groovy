@@ -86,16 +86,16 @@ def fieldNamesFromTemplateParamsList(inputFile) {
 def buildAssignmentList(TEMPLATE_PARAMS, setCommands) {
   def assignmentList =""
     for (String setCMD : setCommands) {
-    println "processing ${setCMD}"
-    indexOfEquals = setCMD.indexOf("=")
-    if (indexOfEquals > -1 ) {
-      compare = setCMD.substring(0,indexOfEquals)
-      if(TEMPLATE_PARAMS.contains(compare)){
+      println "processing ${setCMD}"
+      indexOfEquals = setCMD.indexOf("=")
+      if (indexOfEquals > -1 ) {
+        compare = setCMD.substring(0,indexOfEquals)
+        if(TEMPLATE_PARAMS.contains(compare)){
           assignmentList = assignmentList + '"' + setCMD + '" '
+        }
       }
     }
   return assignmentList
-  }
 }
   
 def fileLinesToList(inputFile) {
