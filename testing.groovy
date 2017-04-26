@@ -46,9 +46,7 @@ node {
   //    sh 'ls -tal'
   //}
   
-  println "______________________________________________________________________________________________________"
-  println "    Get the pipeline repo" 
-  checkout scm
+  getPipelineRepo('/')
 
   println "______________________________________________________________________________________________________"
   println "    Merging list of name to create a list of sets "
@@ -80,3 +78,15 @@ node {
   println "args = $TEMPLATE_ARGS"
   
   }
+
+getRepo(String fromURL, String onBranch, String toDir, String withCredentialId) {
+  dir ( toDir ) { 
+      git branch:onBranch, credentialsId: withCredentialId', url: fromUrl
+  }
+}
+
+getPipelineRepo(String toDir) {
+  dir ( toDir) {
+    checkout scm
+  }
+}
