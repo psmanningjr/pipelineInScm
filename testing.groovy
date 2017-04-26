@@ -59,6 +59,7 @@ node {
 
   //# Filter out unneeded config arguments
   def setCommands = fileLinesToList('./fileWithEqualsAndBlanks') 
+    println "setcommands = ${setCommands}"
   def TEMPLATE_ARGS = buildAssignmentList(TEMPLATE_PARAMS, setCommands)
     //def TEMPLATE_ARGS =""
  //   for (String eachSplit : splitData) {
