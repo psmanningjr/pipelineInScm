@@ -57,27 +57,26 @@ node {
   //# Get parameters expected by template
   sh script: "oc process --namespace ${TO_NAMESPACE} -f app_repo/openshift-config-map-template.yml --parameters >/tmp/paraminfo "
   def TEMPLATE_PARAMS = fieldNamesFromTemplateParamsList('/tmp/paraminfo')
-  //sh "cut -f 1 -d "+'" "' + " /tmp/paraminfo >/tmp/onlynames"
-  //sh "tail -n +2 /tmp/onlynames >/tmp/tailed"
-
-  //def TEMPLATE_PARAMS = readFile('/tmp/tailed').trim()
-  //println "Template parameters = ${TEMPLATE_PARAMS}"
+  println "Template parameters = ${TEMPLATE_PARAMS}"
 
   //# Filter out unneeded config arguments
-  def TEMPLATE_ARGS =""
-  def configVars = readFile('config_repo/vars.sh')
-  String[] splitData = configVars.split("\n");
-  count = splitData.size()
-  //println "config vars = ${configVars}"
-  for (String eachSplit : splitData) {
+  def setCommands = fileLinesToList('config_repo/vars.sh') 
+    println "setCommands = ${setCommands}"
+  def TEMPLATE_ARGS = buildAssignmentList(TEMPLATE_PARAMS, setCommands)
+  //def TEMPLATE_ARGS =""
+  //def configVars = readFile('config_repo/vars.sh')
+  //String[] splitData = configVars.split("\n");
+  //count = splitData.size()
+  ////println "config vars = ${configVars}"
+  //for (String eachSplit : splitData) {
     //println "processing ${eachSplit}"
-    indexOfEquals = eachSplit.indexOf("=")
-    if (indexOfEquals > -1 ) {
-      compare = eachSplit.substring(0,indexOfEquals)
-      if(TEMPLATE_PARAMS.contains(compare)){
-          TEMPLATE_ARGS = TEMPLATE_ARGS + '"' + eachSplit + '" '
-      }
-    }
+  //  indexOfEquals = eachSplit.indexOf("=")
+  //  if (indexOfEquals > -1 ) {
+  //    compare = eachSplit.substring(0,indexOfEquals)
+  //    if(TEMPLATE_PARAMS.contains(compare)){
+  //        TEMPLATE_ARGS = TEMPLATE_ARGS + '"' + eachSplit + '" '
+  //    }
+  //  }
   }
   //println "args = $TEMPLATE_ARGS"
   
