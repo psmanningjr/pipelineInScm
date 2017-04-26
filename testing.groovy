@@ -58,8 +58,8 @@ node {
   println "Template parameters = ${TEMPLATE_PARAMS}"
 
   //# Filter out unneeded config arguments
-  def splitData = fileLinesToList('./fileWithEqualsAndBlanks') 
-  def TEMPLATE_ARGS = buildAssignmentList(TEMPLATE_PARAMS, splitData)
+  def setCommands = fileLinesToList('./fileWithEqualsAndBlanks') 
+  def TEMPLATE_ARGS = buildAssignmentList(TEMPLATE_PARAMS, setCommands)
     //def TEMPLATE_ARGS =""
  //   for (String eachSplit : splitData) {
     //println "processing ${eachSplit}"
@@ -82,15 +82,15 @@ def fieldNamesFromTemplateParamsList(inputFile) {
   return fieldnamesOnly
 }
 
-def buildAssignmentList(TEMPLATE_PARAMS, splitData) {
+def buildAssignmentList(TEMPLATE_PARAMS, setCommands) {
   def assignmentList =""
-    for (String eachSplit : splitData) {
-    //println "processing ${eachSplit}"
-    indexOfEquals = eachSplit.indexOf("=")
+    for (String setCMD : setCommands) {
+    println "processing ${setCMD}"
+    indexOfEquals = setCMD.indexOf("=")
     if (indexOfEquals > -1 ) {
-      compare = eachSplit.substring(0,indexOfEquals)
+      compare = setCMD.substring(0,indexOfEquals)
       if(TEMPLATE_PARAMS.contains(compare)){
-          assignmentList = assignmentList + '"' + eachSplit + '" '
+          assignmentList = assignmentList + '"' + setCMD + '" '
       }
     }
   return assignmentList
