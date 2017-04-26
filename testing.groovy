@@ -1,12 +1,12 @@
 #!/usr/bin/env groovy
 
-void getRepo(String fromURL, String onBranch, String toDir, String withCredentialId) {
+def getRepo(String fromURL, String onBranch, String toDir, String withCredentialId) {
   dir ( toDir ) { 
       git branch:onBranch, credentialsId: withCredentialId, url: fromUrl
   }
 }
 
-void getPipelineRepo(String toDir) {
+def getPipelineRepo(String toDir) {
   dir ( toDir) {
     checkout scm
   }
