@@ -53,7 +53,7 @@ node {
   
   sh "cat ./listOfNamesFromTemplate "
   def templateNames = readFile('./listOfNamesFromTemplate').trim()
-  def TEMPLATE_PARAMS = takeFirstFieldOnEachItem(dropFirstItem(templateNames))
+  def TEMPLATE_PARAMS = takeFirstFieldOnEachItem(dropFirstItem('./listOfNamesFromTemplate'))
 //  sh "cut -f 1 -d "+'" "' + " ./listOfNamesFromTemplate >/tmp/onlynames"
 //  sh "cat /tmp/onlynames"
 //  sh "tail -n +2 /tmp/onlynames >/tmp/tailed"
@@ -81,8 +81,9 @@ node {
   }
 }
 
-def dropFirstItem(list) {
-     return list.listIterator().drop(1)
+def dropFirstItem(inputFile) {
+  sh "tail -n +2 ${inputFile} >/tmp/firstDropped"
+  return readFile('/tmp/firstDropped').trim()
 }
  
 def takeFirstFieldOnEachItem(list) {
