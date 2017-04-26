@@ -93,7 +93,6 @@ def buildAssignmentList(splitData)
           assignmentList = assignmentlist + '"' + eachSplit + '" '
       }
     }
-  }
   return assignmentList
 }
   
