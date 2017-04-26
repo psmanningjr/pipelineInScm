@@ -127,7 +127,7 @@ def fileLinesToList(inputFile) {
 
 def getRepo(String fromURL, String onBranch, String toDir, String withCredentialId) {
   dir ( toDir ) { 
-      git branch:onBranch, credentialsId: withCredentialId, url: fromUrl
+      git branch:onBranch, credentialsId: withCredentialId, url: fromURL
   }
 }
 
