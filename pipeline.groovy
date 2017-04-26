@@ -18,35 +18,36 @@ parameters: [
 
 node {
   stage('Git clone') {
-  //sh "echo ${inputParams}"
-  FROM_TAG = inputParams.get('fromTag')
-  APP_REPO = inputParams.get('appRepo')
-  APP_BRANCH = inputParams.get('appBranch')
-  CONFIG_REPO = inputParams.get('configRepo')
-  CONFIG_BRANCH = inputParams.get('configBranch')
-  TEMPLATE_NAME = inputParams.get('templateName')
-  RUNTIME = inputParams.get('runtime')
-  APP_NAME = inputParams.get('app_name')
-  TO_NAMESPACE = inputParams.get('to_namespace')
-  FROM_NAMESPACE = inputParams.get('from')
-  TEMPLATE_NAME = inputParams.get('templateName')
-  HOSTNAME_HTTP = inputParams.get('hostnameHTTP')
+    //sh "echo ${inputParams}"
+    FROM_TAG = inputParams.get('fromTag')
+    APP_REPO = inputParams.get('appRepo')
+    APP_BRANCH = inputParams.get('appBranch')
+    CONFIG_REPO = inputParams.get('configRepo')
+    CONFIG_BRANCH = inputParams.get('configBranch')
+    TEMPLATE_NAME = inputParams.get('templateName')
+    RUNTIME = inputParams.get('runtime')
+    APP_NAME = inputParams.get('app_name')
+    TO_NAMESPACE = inputParams.get('to_namespace')
+    FROM_NAMESPACE = inputParams.get('from')
+    TEMPLATE_NAME = inputParams.get('templateName')
+    HOSTNAME_HTTP = inputParams.get('hostnameHTTP')
   
-  println "______________________________________________________________________________________________________"
-  println "    Get ${CONFIG_REPO} Configuration Repo" 
-  
-  dir( 'config_repo' ) { 
+    println "______________________________________________________________________________________________________"
+    println "    Get ${CONFIG_REPO} Configuration Repo" 
+    
+    dir( 'config_repo' ) { 
       git branch: CONFIG_BRANCH, credentialsId: 'mint-dev-jenkinsgitlabsecret', url: CONFIG_REPO
       sh 'ls -tal'
-  }
+    }
     
-  println "______________________________________________________________________________________________________"
-  println "    Get ${APP_REPO} Application Repo" 
-  dir ( 'app_repo' ) { 
-      git branch: APP_BRANCH, credentialsId: 'mint-dev-jenkinsgitlabsecret', url: APP_REPO
+    println "______________________________________________________________________________________________________"
+    println "    Get ${APP_REPO} Application Repo" 
+    dir ( 'app_repo' ) { 
+        git branch: APP_BRANCH, credentialsId: 'mint-dev-jenkinsgitlabsecret', url: APP_REPO
       sh 'ls -tal'
+    }
   }
-
+  
   println "______________________________________________________________________________________________________"
   println "    Create ${TO_NAMESPACE} Deployment configs etc. for ${TEMPLATE_NAME} if needed "
 
