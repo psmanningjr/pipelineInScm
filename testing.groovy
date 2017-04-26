@@ -82,7 +82,7 @@ node {
 }
 
 def dropFirstItem(list) {
-     return list.listiterator().drop(1)
+     return list.listIterator().drop(1)
 }
  
 def takeFirstFieldOnEachItem(list) {
