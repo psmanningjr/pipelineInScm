@@ -53,7 +53,7 @@ node {
   
   sh "cat ./listOfNamesFromTemplate "
   def templateNames = readFile('./listOfNamesFromTemplate').trim()
-  def TEMPLATE_PARAMS = takeFirstFieldOnEachItem(dropFirstItem(templateNames))
+  def TEMPLATE_PARAMS = takeFirstFieldOnEachItem(templateNames.removeElement(0)))
 //  sh "cut -f 1 -d "+'" "' + " ./listOfNamesFromTemplate >/tmp/onlynames"
 //  sh "cat /tmp/onlynames"
 //  sh "tail -n +2 /tmp/onlynames >/tmp/tailed"
